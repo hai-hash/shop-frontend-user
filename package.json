@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vueperslides": "^2.16.0",
+    "vuetify": "^2.6.14"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -22,9 +24,12 @@
     "@vue/test-utils": "^1.1.3",
     "@vue/vue2-jest": "^27.0.0-alpha.2",
     "babel-jest": "^27.0.6",
+    "deepmerge": "^4.3.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "jest": "^27.0.5",
+    "sass": "~1.32",
+    "sass-loader": "^13.2.0",
     "vue-template-compiler": "^2.6.14"
   }
 }
