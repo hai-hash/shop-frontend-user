@@ -2,12 +2,19 @@
     height: 78px !important;
     box-shadow: none !important;
 }
+body * {
+    font-family: Barlow;
+    font-size: 14px;
+}
 .v-toolbar__content{
     width: 1140px ;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+*, :after, :before {
+    box-sizing: border-box;
 }
 
 @media screen {

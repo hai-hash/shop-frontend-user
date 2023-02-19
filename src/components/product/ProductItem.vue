@@ -13,14 +13,19 @@
                 <div class="product-origin-price">28,000đ</div>
                 <div class="product-sale-price">46,000đ</div>
             </div>
-            <div class="button-type-one btn-order-product">Đặt Hàng</div>
+            <div class="button-type-one btn-order-product" @click="handleOrder">Đặt Hàng</div>
         </div>
     </div>
 
 </template>
 <script>
 export default{
-    name: 'ProductItem'
+    name: 'ProductItem',
+    methods:{
+        handleOrder(){
+            this.$router.push('/order')
+        }
+    }
 }
 </script>
 <style scoped>
