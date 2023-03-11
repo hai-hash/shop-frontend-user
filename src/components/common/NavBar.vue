@@ -3,55 +3,59 @@
         <v-app-bar color="#f5f5f500" dense dark class="nav-bar">
             <div class="left">
                 <div class="logo">
-                    <img class="logo-img" src="@/assets/Logo-tea.png" alt="logo" />
+                    <img class="logo-img" src="@/assets/logo-medicime.png" alt="logo" />
                 </div>
                 <div class="nav-bar-title">
                     <ul class="menu">
                         <li class="nav-bar-title-item">
-                            TRANG CHỦ
-                        </li>
-                        <li class="nav-bar-title-item">
-                            GIỚI THIỆU
+                            VỀ TASHAPY
                         </li>
                         <li class="nav-bar-title-item">
                             SẢN PHẨM
                         </li>
-
-                        <li class="nav-bar-title-item">TIN TỨC</li>
                         <li class="nav-bar-title-item">
-                            CỬA HÀNG
+                            ƯU ĐÃI
                         </li>
                         <li class="nav-bar-title-item">
-                            TUYỂN DỤNG
+                            BLOG
                         </li>
                         <li class="nav-bar-title-item">
-                            NHƯỢNG QUYỀN
+                            LIÊN HỆ
                         </li>
                     </ul>
                 </div>
-                <div class="menu-mobile" :style="isOpenMenuMobile ? 'display:block' : 'display:none'">
+                <div :class="isOpenMenuMobile ? 'menu-mobile active-menu-mobie' : 'menu-mobile'">
                     <div class="btn-close" @click="closeMenuMobile">Đóng</div>
                     <div class="menu-primary">
                         <ul id="menu-menu-chinh" class="menu-mobile-option">
-                            <li><a>Trang Chủ</a></li>
-                            <li><a>Giới Thiệu</a></li>
-                            <li> <a>Sản Phẩm</a></li>
-                            <li> <a>Tin Tức</a></li>
-                            <li> <a>Cửa Hàng</a></li>
-                            <li> <a>Nhượng Quyền</a></li>
+                            <li><a>VỀ TASHAPY</a></li>
+                            <li><a> SẢN PHẨM</a></li>
+                            <li> <a>ƯU ĐÃI</a></li>
+                            <li> <a>BLOG</a></li>
+                            <li> <a>LIÊN HỆ</a></li>
                         </ul>
                     </div>
 
                 </div>
             </div>
             <div class="right">
-                <v-btn icon class="search-icon">
-                    <v-icon>mdi-magnify</v-icon>
-                </v-btn>
-                <v-btn icon class="menu-icon" @click="openMenuMobile">
+                <div class="search">
+                    <v-btn icon class="search-icon">
+                        <v-icon>mdi-magnify</v-icon>
+                    </v-btn>
+                    <input type="text" placeholder="Tìm kiếm" />
+                </div>
+                <div class="cart">
+                    <v-icon>mdi-shopping-outline</v-icon>
+                    <div class="title-cart">GIỎ HÀNG</div>
+                </div>
+                <div class="number-contact">
+                    <div class="content-number">0974 722 827</div>
+                </div>
+            </div>
+            <v-btn icon class="menu-icon" @click="openMenuMobile">
                     <v-icon>mdi-menu</v-icon>
                 </v-btn>
-            </div>
         </v-app-bar>
     </div>
 </template>
@@ -80,10 +84,10 @@ export default {
                 this.isFixMenu = false;
             }
         },
-        openMenuMobile(){
+        openMenuMobile() {
             this.isOpenMenuMobile = true;
         },
-        closeMenuMobile(){
+        closeMenuMobile() {
             this.isOpenMenuMobile = false;
         }
     },
@@ -96,10 +100,62 @@ export default {
 </script>
 <style scoped>
 .left {
-    min-width: 88%;
+    min-width: 48%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.right {
+    min-width: 48%;
+    display: flex;
+    justify-content: start;
+}
+
+.search {
+    display: flex;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid;
+    display: inline-flex;
+    padding: 0px 10px;
+    margin-right: 10px;
+}
+
+.search input {
+    color: #fff;
+}
+
+.search input:focus-visible {
+    outline: unset;
+}
+
+
+.cart{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 10px;
+    padding: 2px 10px;
+    border: solid 1px rgb(212,102, 5);
+    background-color: rgb(212,102, 5);
+    border-radius: 16px;
+    min-width: 125px;
+    
+}
+
+.number-contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 10px;
+    border: solid 1px rgb(212,102, 5);
+    background-color: rgb(212,102, 5);
+    border-radius: 16px;
+    min-width: 125px
+}
+.title-cart{
+    margin-left: 10px;
 }
 
 .nav-bar {
@@ -108,7 +164,7 @@ export default {
 }
 
 .nav-bar-title {
-    min-width: 78%;
+    min-width: 55%;
 }
 
 .menu {
@@ -120,7 +176,7 @@ export default {
 
 .nav-bar-title-item {
     border-bottom: 2px solid #f5f5f500;
-    margin-right: 25px;
+    margin-right: 18px;
 
 }
 
@@ -131,7 +187,7 @@ export default {
 }
 
 .logo-img {
-    width: 200px;
+    width: 90px;
 }
 
 .nav-bar-component {
@@ -140,8 +196,13 @@ export default {
     z-index: 1000;
 }
 
+.search-icon {
+    width: 30px !important;
+    height: 30px !important;
+}
+
 #header.scroll-header {
-    background: #282828;
+    background: rgb(1, 64, 35);
     position: fixed;
     top: 0;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
@@ -149,13 +210,37 @@ export default {
     animation: slide-down 0.5s;
 }
 
-@media only screen and (max-width: 768px) {
-
-    .nav-bar-title,
-    .search-icon {
+@media only screen and (max-width: 1044px) {
+    .number-contact{
         display: none;
     }
-    .menu-icon{
+
+}
+
+@media only screen and (max-width: 768px) {
+    .search{
+        width: 100%;
+    }
+    .active-menu-mobie{
+        display: block !important;
+    }
+    .left{
+        min-width: unset;
+    }
+    .right{
+        min-width: 50%;
+    justify-content: center;
+    }
+
+    .cart{
+        display: none;
+    }
+
+    .nav-bar-title {
+        display: none;
+    }
+
+    .menu-icon {
         display: block;
     }
 
@@ -210,11 +295,18 @@ export default {
 
 }
 
+@media only screen and (max-width: 768px) {
+    .search{
+        display: none;
+    }
+}
+
 @media only screen and (min-width: 768px) {
     .menu-mobile {
         display: none;
     }
-    .menu-icon{
+
+    .menu-icon {
         display: none;
     }
 }</style>
