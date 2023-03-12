@@ -5,7 +5,7 @@
         <div class="content-introduction">
             <div class="content-item-introduction">
                 <div class="title-content">
-                    <h1>TASHAPY CAM KẾT</h1>
+                    <h1>CAM KẾT SẢN PHẨM VÀ DỊCH VỤ</h1>
                     <div class="border-botom-title"></div>
                 </div>
                 <CardItem />

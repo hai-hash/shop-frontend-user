@@ -2,7 +2,7 @@
     <div class="technology-item">
         <div class="technology-content">
             <h1 class="title">{{ dataPosts.title }}</h1>
-            <div class="content">{{ dataPosts.content }}</div>
+            <div class="content">{{ dataPosts.content.substring(0,100)}}[...]</div>
         </div>
         <div class="technology-image">
             <img src="@/assets/vstp-1.jpg" />
