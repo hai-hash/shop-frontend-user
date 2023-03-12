@@ -1,5 +1,5 @@
 <template>
- <vueper-slides  :bullets="false" :touchable="true" fixed-height="55vw">
+ <vueper-slides>
       <vueper-slide v-for="(slide, i) in slides" :key="i" :image="slide.image"
       >
       <template v-slot:content>

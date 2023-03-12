@@ -109,7 +109,7 @@ export default {
 .right {
     min-width: 48%;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .search {
@@ -191,7 +191,8 @@ export default {
 }
 
 .nav-bar-component {
-    position: absolute;
+    background: rgb(1, 64, 35);
+    position: relative;
     width: 100%;
     z-index: 1000;
 }
