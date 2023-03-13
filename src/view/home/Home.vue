@@ -5,6 +5,8 @@
       <QuantityProductPosts/>
       <TechnologyPosts/>
       <ExpertOpinion/>
+      <DiscountHomePage/>
+      <ProductCategory/>
       <ListProduct />
     </v-app>
   </template>
@@ -16,6 +18,8 @@
   import QuantityProductPosts from '@/view/home/QuantityProductPosts.vue';
   import TechnologyPosts from '@/view/home/TechnologyPosts.vue';
   import ExpertOpinion from '@/view/home/ExpertOpinion.vue';
+  import DiscountHomePage from '@/view/home/DiscountHomePage.vue';
+  import ProductCategory from '@/view/home/ProductCategory.vue'
   export default {
     name: 'App',
     components: {
@@ -24,7 +28,9 @@
       IntroductionTashapy,
       QuantityProductPosts,
       TechnologyPosts,
-      ExpertOpinion
+      ExpertOpinion,
+      DiscountHomePage,
+      ProductCategory
     }
   }
   </script>
