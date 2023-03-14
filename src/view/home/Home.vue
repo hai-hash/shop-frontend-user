@@ -7,6 +7,7 @@
       <ExpertOpinion/>
       <DiscountHomePage/>
       <ProductCategory/>
+      <HotProduct/>
       <ListProduct />
     </v-app>
   </template>
@@ -20,6 +21,7 @@
   import ExpertOpinion from '@/view/home/ExpertOpinion.vue';
   import DiscountHomePage from '@/view/home/DiscountHomePage.vue';
   import ProductCategory from '@/view/home/ProductCategory.vue'
+  import HotProduct from './HotProduct.vue';
   export default {
     name: 'App',
     components: {
@@ -30,7 +32,8 @@
       TechnologyPosts,
       ExpertOpinion,
       DiscountHomePage,
-      ProductCategory
+      ProductCategory,
+      HotProduct
     }
   }
   </script>
