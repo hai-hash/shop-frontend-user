@@ -31,6 +31,14 @@ body * {
 .button-view-now .v-btn__content{
     color: #fff;
 }
+.vueperslides__arrow--prev{
+    left: unset !important;
+    top: 160px !important;
+}
+.vueperslides__arrow--next{
+    right: 0px !important;
+    top: 160px !important;
+}
 
 @media screen {
     

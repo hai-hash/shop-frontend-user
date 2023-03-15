@@ -33,6 +33,7 @@ export default {
     display: flex;
     justify-content: center;
     padding: 50px 0px;
+    flex-wrap: wrap;
 }
 .discount-1 img,.discount-2 img{
    width: 465px;
@@ -44,7 +45,6 @@ export default {
     justify-content: center;
 }
 .wrap-discount{
-    width: 60%;
     display: flex;
     justify-content: flex-start;
 }
