@@ -96,7 +96,7 @@ text-decoration: line-through;
 @media (min-width: 960px) {
     .product-category-wrap {
         /* max-width: 1000px; */
-        min-width: 900px
+        min-width: 960px
     }
 }
 
