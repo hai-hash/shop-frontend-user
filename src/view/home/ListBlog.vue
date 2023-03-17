@@ -124,13 +124,13 @@ export default {
 
 .title-blog {
   padding-left: 10px;
-  min-width: 1000px;
-  width: 1000px;
+  width: 400px;
   margin: 0 auto;
 }
 
 .title-list-blog {
   font-size: 24px;
+  min-width: 400px;
   color: rgb(242, 160, 41);
 }
 
