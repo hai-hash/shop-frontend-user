@@ -115,6 +115,7 @@ export default {
 <style scoped>
 .blogs {
   background-color: rgb(1, 64, 35);
+  min-width: 400px;
 }
 
 .blog-wrap {
@@ -123,13 +124,14 @@ export default {
 
 .title-blog {
   padding-left: 10px;
-  min-width: 1000px;
-  width: 1000px;
+  max-width: 1000px;
+  min-width: 400px;
   margin: 0 auto;
 }
 
 .title-list-blog {
   font-size: 24px;
+  min-width: 400px;
   color: rgb(242, 160, 41);
 }
 
@@ -214,7 +216,8 @@ export default {
 .content-horizontal .text {
   text-align: justify;
   margin-bottom: 0px;
-  height: 190px;
+  overflow: hidden;
+  height: 185px;
 }
 
 .content-horizontal .half-content-image {
@@ -259,7 +262,7 @@ export default {
 }
 
 .no-content-blog .blank-content {
-  height: 195px;
+  height: 185px;
 }
 
 .time-and-share {
@@ -296,9 +299,9 @@ export default {
 }
 
 .plus-icon {
-  margin-top: 55px;
-  margin-left: 45px;
-  height: 120px;
+  margin-top: 25%;
+  margin-left: 25%;
+  height: 50%;
   opacity: 0.5;
 }
 
@@ -334,9 +337,49 @@ export default {
   margin-bottom: 5px;
 }
 
-@media (min-width: 960px) {}
+@media (min-width: 960px) {
+  .two-col {
+    width: 480px;
+    min-width: 480px;
+    height: 260px;
+  
+    margin-right: 10px;
+    margin-top: 10px;
+  
+    display: flex;
+    text-align: justify;
+  }
+}
 
-@media only screen and (max-width: 960px) {}
+@media only screen and (max-width: 960px) {
+  .two-col {
+    width: 480px;
+    min-width: 480px;
+    height: 260px;
+  
+    margin-right: 10px;
+    margin-top: 10px;
+  
+    display: flex;
+    text-align: justify;
+  }
+}
 
-@media only screen and (max-width: 768px) {}
+@media only screen and (max-width: 768px) {
+  .two-col {
+    width: 340px;
+    min-width: 340px;
+    height: 250px;
+    margin-right: 10px;
+    margin-top: 10px;
+    display: flex;
+    text-align: justify;
+  }
+  .plus-icon {
+    margin-top: 60px;
+    margin-left: 27px;
+    height: 90px;
+    opacity: 0.5;
+  }  
+}
 </style>
