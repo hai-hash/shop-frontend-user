@@ -124,7 +124,8 @@ export default {
 
 .title-blog {
   padding-left: 10px;
-  width: 400px;
+  max-width: 1000px;
+  min-width: 400px;
   margin: 0 auto;
 }
 
