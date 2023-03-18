@@ -204,27 +204,59 @@ export default {
                 this.isFixMenu = false;
             }
         },
-        handleMenuResize(){
+        handleMenuResize() {
             const width = window.innerWidth;
-            if(width < 1088){
-                if(this.menuItems.length > 3){
+            if (width < 800) {
+                if (this.menuItems.length > 1) {
                     const lastItem = this.menuItems[this.menuItems.length - 1];
                     this.menuItems.pop();
                     this.subMenuItem.unshift(lastItem);
                 }
-            }
-            else{
-                if(this.menuItems.length < 4){
-                    if(this.subMenuItem.length > 0){
+                else if (this.menuItems.length < 1) {
+                    if (this.subMenuItem.length > 0) {
                         const fisrtItemSubMenu = this.subMenuItem[0];
                         this.subMenuItem.shift();
                         this.menuItems.push(fisrtItemSubMenu);
                     }
                 }
             }
-
-        
-
+            else if (width < 950) {
+                if (this.menuItems.length > 2) {
+                    const lastItem = this.menuItems[this.menuItems.length - 1];
+                    this.menuItems.pop();
+                    this.subMenuItem.unshift(lastItem);
+                }
+                else if (this.menuItems.length < 2) {
+                    if (this.subMenuItem.length > 0) {
+                        const fisrtItemSubMenu = this.subMenuItem[0];
+                        this.subMenuItem.shift();
+                        this.menuItems.push(fisrtItemSubMenu);
+                    }
+                }
+            }
+            else if (width < 1088) {
+                if (this.menuItems.length > 3) {
+                    const lastItem = this.menuItems[this.menuItems.length - 1];
+                    this.menuItems.pop();
+                    this.subMenuItem.unshift(lastItem);
+                }
+                else if (this.menuItems.length < 3) {
+                        if (this.subMenuItem.length > 0) {
+                            const fisrtItemSubMenu = this.subMenuItem[0];
+                            this.subMenuItem.shift();
+                            this.menuItems.push(fisrtItemSubMenu);
+                        }
+                }
+            }
+            else {
+                    if (this.menuItems.length < 4) {
+                        if (this.subMenuItem.length > 0) {
+                            const fisrtItemSubMenu = this.subMenuItem[0];
+                            this.subMenuItem.shift();
+                            this.menuItems.push(fisrtItemSubMenu);
+                        }
+                    }
+                }
         },
         openMenuMobile() {
             this.isOpenMenuMobile = true;
