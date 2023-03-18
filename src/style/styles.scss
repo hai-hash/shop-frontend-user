@@ -31,15 +31,15 @@ body * {
 .button-view-now .v-btn__content{
     color: #fff;
 }
-.vueperslides__arrow--prev{
+.list-product-sline .vueperslides__arrow--prev{
     left: unset !important;
     top: 160px !important;
 }
-.vueperslides__arrow--next{
+.list-product-sline .vueperslides__arrow--next{
     right: 0px !important;
     top: 160px !important;
 }
-
-@media screen {
-    
+.sub-menu .v-sheet{
+    background-color: unset !important;
 }
+  

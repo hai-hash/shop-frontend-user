@@ -7,35 +7,36 @@
                 </div>
                 <div class="nav-bar-title">
                     <ul class="menu">
-                        <li class="nav-bar-title-item">
-                            VỀ TASHAPY
+                        <li class="nav-bar-title-item" v-for="(item, index1) in menuItems" :key="index1">
+                            <div v-if="item.children.length === 0">{{ item.title }}</div>
+                            <v-menu v-else offset-y>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <div color="#fff" v-bind="attrs" v-on="on">{{ item.title }}</div>
+                                </template>
+                                <v-list>
+                                    <v-list-item v-for="(itemChildren, index) in item.children" :key="index" link>
+                                        <v-list-item-title>{{ itemChildren.title }}</v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
                         </li>
                         <li class="nav-bar-title-item">
-                            SẢN PHẨM
-                        </li>
-                        <li class="nav-bar-title-item">
-                            ƯU ĐÃI
-                        </li>
-                        <li class="nav-bar-title-item">
-                            BLOG
-                        </li>
-                        <li class="nav-bar-title-item">
-                            LIÊN HỆ
+                            <v-menu offset-y :close-on-content-click="false">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-icon color="#fff" v-bind="attrs" v-on="on">mdi-menu-down</v-icon>
+                                </template>
+                                <v-card class="mx-auto" width="300">
+                                    <NavBarItemCommon :subMenuItem="subMenuItem" />
+                                </v-card>
+                            </v-menu>
                         </li>
                     </ul>
                 </div>
                 <div :class="isOpenMenuMobile ? 'menu-mobile active-menu-mobie' : 'menu-mobile'">
                     <div class="btn-close" @click="closeMenuMobile">Đóng</div>
                     <div class="menu-primary">
-                        <ul id="menu-menu-chinh" class="menu-mobile-option">
-                            <li><a>VỀ TASHAPY</a></li>
-                            <li><a> SẢN PHẨM</a></li>
-                            <li> <a>ƯU ĐÃI</a></li>
-                            <li> <a>BLOG</a></li>
-                            <li> <a>LIÊN HỆ</a></li>
-                        </ul>
+                        <NavBarItemCommon :subMenuItem="menuMobie" class="sub-menu" />
                     </div>
-
                 </div>
             </div>
             <div class="right">
@@ -54,21 +55,140 @@
                 </div>
             </div>
             <v-btn icon class="menu-icon" @click="openMenuMobile">
-                    <v-icon>mdi-menu</v-icon>
-                </v-btn>
+                <v-icon>mdi-menu</v-icon>
+            </v-btn>
         </v-app-bar>
     </div>
 </template>
 <script>
+import NavBarItemCommon from './NavBarItemCommon.vue';
 export default {
     name: 'NavBar',
+    components: {
+        NavBarItemCommon
+    },
     created() {
         window.addEventListener("scroll", this.handleMenuWhenScroll)
+        window.addEventListener("resize", this.handleMenuResize)
     },
     data() {
         return {
-            isFixMenu: true,
-            isOpenMenuMobile: false
+            isFixMenu: false,
+            isOpenMenuMobile: false,
+            menuItems: [
+                {
+                    title: 'TRANG CHỦ',
+                    children: [
+                    ]
+                },
+                {
+                    title: 'GIỚI THIỆU',
+                    children: [
+                        { title: 'THƯ NGỎ HOẶC THÔNG ĐIỆP' },
+                        { title: 'SỨ MỆNH - TẦM NHÌN' },
+                        { title: 'THÀNH TỰU' },
+                        { title: 'LỊCH SỬ HÌNH THÀNH' },
+                    ]
+                },
+                {
+                    title: 'SẢN PHẨM',
+                    children: [
+                    ]
+                },
+                {
+                    title: 'TIN TỨC',
+                    children: [
+                        {
+                            title: 'Tin mới nhất'
+                        },
+                        {
+                            title: 'Tin tức khuyến mại'
+                        },
+                        {
+                            title: 'Tin HINA'
+                        },
+                        {
+                            title: 'HINA với cộng đồng'
+                        },
+                        {
+                            title: 'Cẩm nang sức khỏe'
+                        },
+                        {
+                            title: 'Hỏi đáp từ chuyên gia'
+                        }
+                    ]
+                }
+            ],
+            subMenuItem: [
+                {
+                    title: 'CỬA HÀNG',
+                    children: []
+                },
+                {
+                    title: 'LIÊN HỆ',
+                    children: []
+                },
+                {
+                    title: 'BLOCK',
+                    children: []
+                }
+            ],
+            menuMobie: [
+                {
+                    title: 'TRANG CHỦ',
+                    children: [
+                    ]
+                },
+                {
+                    title: 'GIỚI THIỆU',
+                    children: [
+                        { title: 'THƯ NGỎ HOẶC THÔNG ĐIỆP' },
+                        { title: 'SỨ MỆNH - TẦM NHÌN' },
+                        { title: 'THÀNH TỰU' },
+                        { title: 'LỊCH SỬ HÌNH THÀNH' },
+                    ]
+                },
+                {
+                    title: 'SẢN PHẨM',
+                    children: [
+                    ]
+                },
+                {
+                    title: 'TIN TỨC',
+                    children: [
+                        {
+                            title: 'Tin mới nhất'
+                        },
+                        {
+                            title: 'Tin tức khuyến mại'
+                        },
+                        {
+                            title: 'Tin HINA'
+                        },
+                        {
+                            title: 'HINA với cộng đồng'
+                        },
+                        {
+                            title: 'Cẩm nang sức khỏe'
+                        },
+                        {
+                            title: 'Hỏi đáp từ chuyên gia'
+                        }
+                    ]
+                },
+                {
+                    title: 'CỬA HÀNG',
+                    children: []
+                },
+                {
+                    title: 'LIÊN HỆ',
+                    children: []
+                },
+                {
+                    title: 'BLOCK',
+                    children: []
+                }
+            ]
         }
     },
     unmounted() {
@@ -83,6 +203,28 @@ export default {
             else {
                 this.isFixMenu = false;
             }
+        },
+        handleMenuResize(){
+            const width = window.innerWidth;
+            if(width < 1088){
+                if(this.menuItems.length > 3){
+                    const lastItem = this.menuItems[this.menuItems.length - 1];
+                    this.menuItems.pop();
+                    this.subMenuItem.unshift(lastItem);
+                }
+            }
+            else{
+                if(this.menuItems.length < 4){
+                    if(this.subMenuItem.length > 0){
+                        const fisrtItemSubMenu = this.subMenuItem[0];
+                        this.subMenuItem.shift();
+                        this.menuItems.push(fisrtItemSubMenu);
+                    }
+                }
+            }
+
+        
+
         },
         openMenuMobile() {
             this.isOpenMenuMobile = true;
@@ -131,30 +273,31 @@ export default {
 }
 
 
-.cart{
+.cart {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-right: 10px;
     padding: 2px 10px;
-    border: solid 1px rgb(212,102, 5);
-    background-color: rgb(212,102, 5);
+    border: solid 1px rgb(212, 102, 5);
+    background-color: rgb(212, 102, 5);
     border-radius: 16px;
     min-width: 125px;
-    
+
 }
 
-.number-contact{
+.number-contact {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2px 10px;
-    border: solid 1px rgb(212,102, 5);
-    background-color: rgb(212,102, 5);
+    border: solid 1px rgb(212, 102, 5);
+    background-color: rgb(212, 102, 5);
     border-radius: 16px;
     min-width: 125px
 }
-.title-cart{
+
+.title-cart {
     margin-left: 10px;
 }
 
@@ -212,28 +355,31 @@ export default {
 }
 
 @media only screen and (max-width: 1044px) {
-    .number-contact{
+    .number-contact {
         display: none;
     }
 
 }
 
 @media only screen and (max-width: 768px) {
-    .search{
+    .search {
         width: 100%;
     }
-    .active-menu-mobie{
+
+    .active-menu-mobie {
         display: block !important;
     }
-    .left{
+
+    .left {
         min-width: unset;
     }
-    .right{
+
+    .right {
         min-width: 50%;
-    justify-content: center;
+        justify-content: center;
     }
 
-    .cart{
+    .cart {
         display: none;
     }
 
@@ -297,7 +443,7 @@ export default {
 }
 
 @media only screen and (max-width: 768px) {
-    .search{
+    .search {
         display: none;
     }
 }
@@ -310,4 +456,5 @@ export default {
     .menu-icon {
         display: none;
     }
-}</style>
+}
+</style>

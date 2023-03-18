@@ -1,7 +1,7 @@
 <template>
     <div class="product-category-wrap">
         <div class="title-product-category">
-            <h1 class="title-list-category">SẢN PHẨM BÁN CHẠY</h1>
+            <h1 class="title-list-category">{{ title }}</h1>
             <div class="border-bottom-title"></div>
         </div>
         <div class="list-product-sline">
@@ -35,9 +35,11 @@ export default {
         VueperSlides,
         VueperSlide
     },
+    props:{
+        title:String
+    },
     data() {
         return {
-
         }
     }
 }
@@ -95,7 +97,7 @@ text-decoration: line-through;
 
 @media (min-width: 960px) {
     .product-category-wrap {
-        /* max-width: 1000px; */
+        max-width: 1000px;
         min-width: 960px
     }
 }
