@@ -1,124 +1,59 @@
 <template>
-    <div class="product-category-wrap">
-        <div class="title-product-category">
-            <h1 class="title-list-category">{{ title }}</h1>
-            <div class="border-bottom-title"></div>
-        </div>
-        <div class="list-product-sline">
-            <div id="slide" class="owl-carousel owl-theme">
-                <div> Your Content </div>
-                <div> Your Content </div>
-                <div> Your Content </div>
-                <div> Your Content </div>
-                <div> Your Content </div>
-                <div> Your Content </div>
-                <div> Your Content </div>
-            </div>
-        </div>
-
-    </div>
-</template>
-<script>
-export default {
-    name: 'ListProductGrid',
-    created() {
-        document.addEventListener("DOMContentLoaded", () => {
-           document.getElementById('slide').owlCarousel();
-        });
-    },
-    props: {
-        title: String
-    },
-    data() {
+    <swiper class="swiper" :options="swiperOption">
+      <swiper-slide>Slide 1</swiper-slide>
+      <swiper-slide>Slide 2</swiper-slide>
+      <swiper-slide>Slide 3</swiper-slide>
+      <swiper-slide>Slide 4</swiper-slide>
+      <swiper-slide>Slide 5</swiper-slide>
+      <swiper-slide>Slide 6</swiper-slide>
+      <swiper-slide>Slide 7</swiper-slide>
+      <swiper-slide>Slide 8</swiper-slide>
+      <swiper-slide>Slide 9</swiper-slide>
+      <swiper-slide>Slide 10</swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
+  </template>
+  
+  <script>
+    import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+    import 'swiper/css/swiper.css'
+  
+    export default {
+      name: 'swiper-example-multiple-slides-per-biew',
+      title: 'Multiple slides per view',
+      components: {
+        Swiper,
+        SwiperSlide
+      },
+      data() {
         return {
+          swiperOption: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true
+            }
+          }
         }
+      }
     }
-}
-</script>
-<style scoped>
-.description-product {
-    margin: 5px;
-}
+  </script>
+  
+  <style scoped>
+   .swiper {
+  height: 300px;
+  width: 100%;
+   }
 
-.sale-price {
-    color: red;
-    font-weight: 700;
-    margin: 5px 5px 0px 5px;
-}
-
-.primary-price {
-    margin: 0px 5px;
-    font-weight: 700;
-    text-decoration: line-through;
-}
-
-.image-item-product {
-    height: 70%;
-    max-width: 200px;
-    margin: 0 auto;
-}
-
-.image-item-product img {
-    height: 100%;
-    width: 100%;
-    object-fit: fill;
-}
-
-.product-item {
-    height: 100%
-}
-
-.product-category-wrap {
-    padding: 20px 0px;
-    margin: 0 auto;
-}
-
-.title-product-category {
-    margin: 20px 5px;
-}
-
-.title-list-category {
-    font-size: 28px;
-    color: rgb(242, 160, 41);
-}
-
-.border-bottom-title {
-    width: 100px;
-    border-bottom: 4px solid rgb(242, 160, 41);
-}
-
-.list-product-category {
+  .swiper-slide {
     display: flex;
-    flex-wrap: wrap;
-}
-
-@media (min-width: 960px) {
-    .product-category-wrap {
-        max-width: 1000px;
-        min-width: 960px
-    }
-}
-
-@media only screen and (max-width: 960px) {
-    .title-product-category {
-        margin-left: 5px;
-    }
-
-    .product-category-wrap {
-        width: 100%;
-    }
-
-    .primary-price,
-    .description-product,
-    .sale-price {
-        text-align: center;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .product-category-wrap {
-        max-width: 550px;
-        min-width: 400px
-    }
-}
-</style>
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    /* font-size: $font-size-huge * 2; */
+    background-color: red;
+  }
+  </style>

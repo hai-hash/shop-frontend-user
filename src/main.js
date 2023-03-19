@@ -6,6 +6,8 @@ import '@/style/styles.scss'
 import 'vueperslides/dist/vueperslides.css'
 import router from './router'
 import VueFbCustomerChat from 'vue-fb-customer-chat'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 
 Vue.use(VueFbCustomerChat, {
   page_id: '104138475948247', //  change 'null' to your Facebook Page ID,
