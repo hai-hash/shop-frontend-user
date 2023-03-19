@@ -204,59 +204,41 @@ export default {
                 this.isFixMenu = false;
             }
         },
+        handleSetMenu(sizeMenu){
+            while (this.subMenuItem.length > 0 && this.menuItems.length > 0) {
+                    if (this.menuItems.length > sizeMenu) {
+                        const lastItem = this.menuItems[this.menuItems.length - 1];
+                        this.menuItems.pop();
+                        this.subMenuItem.unshift(lastItem);
+                    }
+                    else if (this.menuItems.length < sizeMenu) {
+                        if (this.subMenuItem.length > 0) {
+                            const fisrtItemSubMenu = this.subMenuItem[0];
+                            this.subMenuItem.shift();
+                            this.menuItems.push(fisrtItemSubMenu);
+                        }
+                    }
+                    else {
+                        break;
+                    }
+
+                }
+        },
         handleMenuResize() {
             const width = window.innerWidth;
             if (width < 800) {
-                if (this.menuItems.length > 1) {
-                    const lastItem = this.menuItems[this.menuItems.length - 1];
-                    this.menuItems.pop();
-                    this.subMenuItem.unshift(lastItem);
-                }
-                else if (this.menuItems.length < 1) {
-                    if (this.subMenuItem.length > 0) {
-                        const fisrtItemSubMenu = this.subMenuItem[0];
-                        this.subMenuItem.shift();
-                        this.menuItems.push(fisrtItemSubMenu);
-                    }
-                }
+               this.handleSetMenu(1);
+
             }
             else if (width < 950) {
-                if (this.menuItems.length > 2) {
-                    const lastItem = this.menuItems[this.menuItems.length - 1];
-                    this.menuItems.pop();
-                    this.subMenuItem.unshift(lastItem);
-                }
-                else if (this.menuItems.length < 2) {
-                    if (this.subMenuItem.length > 0) {
-                        const fisrtItemSubMenu = this.subMenuItem[0];
-                        this.subMenuItem.shift();
-                        this.menuItems.push(fisrtItemSubMenu);
-                    }
-                }
+               this.handleSetMenu(2);
             }
             else if (width < 1088) {
-                if (this.menuItems.length > 3) {
-                    const lastItem = this.menuItems[this.menuItems.length - 1];
-                    this.menuItems.pop();
-                    this.subMenuItem.unshift(lastItem);
-                }
-                else if (this.menuItems.length < 3) {
-                        if (this.subMenuItem.length > 0) {
-                            const fisrtItemSubMenu = this.subMenuItem[0];
-                            this.subMenuItem.shift();
-                            this.menuItems.push(fisrtItemSubMenu);
-                        }
-                }
+                this.handleSetMenu(3);
             }
             else {
-                    if (this.menuItems.length < 4) {
-                        if (this.subMenuItem.length > 0) {
-                            const fisrtItemSubMenu = this.subMenuItem[0];
-                            this.subMenuItem.shift();
-                            this.menuItems.push(fisrtItemSubMenu);
-                        }
-                    }
-                }
+               this.handleSetMenu(4);
+            }
         },
         openMenuMobile() {
             this.isOpenMenuMobile = true;
