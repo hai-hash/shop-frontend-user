@@ -8,25 +8,25 @@
                 <div class="nav-bar-title">
                     <ul class="menu">
                         <li class="nav-bar-title-item" v-for="(item, index1) in menuItems" :key="index1">
-                            <div v-if="item.children.length === 0">{{ item.title }}</div>
+                            <div v-if="item.children.length === 0" @click="handleClickTitle(item.path)">{{ item.title }}</div>
                             <v-menu v-else offset-y>
                                 <template v-slot:activator="{ on, attrs }">
                                     <div color="#fff" v-bind="attrs" v-on="on">{{ item.title }}</div>
                                 </template>
                                 <v-list>
-                                    <v-list-item v-for="(itemChildren, index) in item.children" :key="index" link>
+                                    <v-list-item v-for="(itemChildren, index) in item.children" :key="index" link @click="handleClickTitle(itemChildren.path)">
                                         <v-list-item-title>{{ itemChildren.title }}</v-list-item-title>
                                     </v-list-item>
                                 </v-list>
                             </v-menu>
                         </li>
                         <li class="nav-bar-title-item">
-                            <v-menu offset-y :close-on-content-click="false">
+                            <v-menu offset-y :close-on-content-click="false" ref="menu">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-icon color="#fff" v-bind="attrs" v-on="on">mdi-menu-down</v-icon>
                                 </template>
                                 <v-card class="mx-auto" width="300">
-                                    <NavBarItemCommon :subMenuItem="subMenuItem" />
+                                    <NavBarItemCommon :subMenuItem="subMenuItem" :handleClickTitle="handleClickTitle"/>
                                 </v-card>
                             </v-menu>
                         </li>
@@ -73,25 +73,28 @@ export default {
     },
     data() {
         return {
+            isOpenTab:false,
             isFixMenu: false,
             isOpenMenuMobile: false,
             menuItems: [
                 {
                     title: 'TRANG CHỦ',
+                    path:"/",
                     children: [
                     ]
                 },
                 {
                     title: 'GIỚI THIỆU',
                     children: [
-                        { title: 'THƯ NGỎ HOẶC THÔNG ĐIỆP' },
-                        { title: 'SỨ MỆNH - TẦM NHÌN' },
-                        { title: 'THÀNH TỰU' },
-                        { title: 'LỊCH SỬ HÌNH THÀNH' },
+                        { title: 'THƯ NGỎ HOẶC THÔNG ĐIỆP', path:"/thu" },
+                        { title: 'SỨ MỆNH - TẦM NHÌN', path:"/gold" },
+                        { title: 'THÀNH TỰU', path:"/exp" },
+                        { title: 'LỊCH SỬ HÌNH THÀNH', path:"/history" },
                     ]
                 },
                 {
                     title: 'SẢN PHẨM',
+                    path:"/product",
                     children: [
                     ]
                 },
@@ -99,22 +102,28 @@ export default {
                     title: 'TIN TỨC',
                     children: [
                         {
-                            title: 'Tin mới nhất'
+                            title: 'Tin mới nhất',
+                            path:"/new"
                         },
                         {
-                            title: 'Tin tức khuyến mại'
+                            title: 'Tin tức khuyến mại',
+                            path:"/sale_new"
                         },
                         {
-                            title: 'Tin HINA'
+                            title: 'Tin HINA',
+                            path:"/hina_new"
                         },
                         {
-                            title: 'HINA với cộng đồng'
+                            title: 'HINA với cộng đồng',
+                            path:"/comunicate_new"
                         },
                         {
-                            title: 'Cẩm nang sức khỏe'
+                            title: 'Cẩm nang sức khỏe',
+                            path:"/hell"
                         },
                         {
-                            title: 'Hỏi đáp từ chuyên gia'
+                            title: 'Hỏi đáp từ chuyên gia',
+                            path:"/ref"
                         }
                     ]
                 }
@@ -122,34 +131,44 @@ export default {
             subMenuItem: [
                 {
                     title: 'CỬA HÀNG',
+                    path:"/store",
                     children: []
                 },
                 {
                     title: 'LIÊN HỆ',
+                    path:"/contact",
                     children: []
                 },
                 {
-                    title: 'BLOCK',
+                    title: 'BLOG',
+                    path:"/blog",
+                    children: []
+                },
+                {
+                    title: 'BLOG EDITOR',
+                    path:"/blog-editor",
                     children: []
                 }
             ],
             menuMobie: [
                 {
                     title: 'TRANG CHỦ',
+                    path:"/",
                     children: [
                     ]
                 },
                 {
                     title: 'GIỚI THIỆU',
                     children: [
-                        { title: 'THƯ NGỎ HOẶC THÔNG ĐIỆP' },
-                        { title: 'SỨ MỆNH - TẦM NHÌN' },
-                        { title: 'THÀNH TỰU' },
-                        { title: 'LỊCH SỬ HÌNH THÀNH' },
+                        { title: 'THƯ NGỎ HOẶC THÔNG ĐIỆP', path:"/thu" },
+                        { title: 'SỨ MỆNH - TẦM NHÌN', path:"/a" },
+                        { title: 'THÀNH TỰU', path:"/exp" },
+                        { title: 'LỊCH SỬ HÌNH THÀNH', path:"/history" },
                     ]
                 },
                 {
                     title: 'SẢN PHẨM',
+                    path:"/product",
                     children: [
                     ]
                 },
@@ -157,35 +176,49 @@ export default {
                     title: 'TIN TỨC',
                     children: [
                         {
-                            title: 'Tin mới nhất'
+                            title: 'Tin mới nhất',
+                            path:"/new"
                         },
                         {
-                            title: 'Tin tức khuyến mại'
+                            title: 'Tin tức khuyến mại',
+                            path:"/sale_new"
                         },
                         {
-                            title: 'Tin HINA'
+                            title: 'Tin HINA',
+                            path:"/hina_new"
                         },
                         {
-                            title: 'HINA với cộng đồng'
+                            title: 'HINA với cộng đồng',
+                            path:"/comunicate_new"
                         },
                         {
-                            title: 'Cẩm nang sức khỏe'
+                            title: 'Cẩm nang sức khỏe',
+                            path:"/sk_new"
                         },
                         {
-                            title: 'Hỏi đáp từ chuyên gia'
+                            title: 'Hỏi đáp từ chuyên gia',
+                            path:"/ref"
                         }
                     ]
                 },
                 {
                     title: 'CỬA HÀNG',
+                    path:"/store",
                     children: []
                 },
                 {
                     title: 'LIÊN HỆ',
+                    path:"/contact",
                     children: []
                 },
                 {
-                    title: 'BLOCK',
+                    title: 'BLOG',
+                    path:"/blog",
+                    children: []
+                },
+                {
+                    title: 'BLOG EDITOR',
+                    path:"/blog-editor",
                     children: []
                 }
             ]
@@ -195,6 +228,13 @@ export default {
         window.removeEventListener('scroll', this.handleMenuWhenScroll);
     },
     methods: {
+        handleClickTitle(pathUrl) {
+  this.$router.push(pathUrl);
+  if (this.$refs.menu) {
+    this.$refs.menu.save();
+  }
+},
+
         handleMenuWhenScroll() {
             const scrollY = window.pageYOffset;
             if (scrollY >= 150) {

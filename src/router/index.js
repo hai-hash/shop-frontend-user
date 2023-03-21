@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import PageUser from '@/view/PageUser/PageUser.vue'
 import Home from '@/view/home/Home.vue'
 import OrderPage from '@/view/order/OrderPage.vue'
+import Page from '@/view/Page/Page.vue'
+import BlogEditor from '@/view/Blog/Blog.vue'
 
 Vue.use(Router)
 
@@ -11,21 +13,33 @@ export default new Router({
   routes: [ // bao gồm danh sách route
     {
       path: '/', 
-      name: 'PageUser',
-      component:  PageUser,
+      name: 'Page',
+      component:  Page,
       children: [
         {
           path: '/',
-          name:'Home',
-          component: Home,
+          name:'PageUser',
+          component: PageUser,
+          children:[
+            {
+              path: '/',
+              name: 'Home',
+              component: Home
+            },
+            {
+              path: '/blog-editor',
+              name: 'BlogEditor',
+              component: BlogEditor
+            }
+          ]
+        },
+        {
+          path: '/order',
+          name: 'OrderPage',
+          component: OrderPage
         }
        
       ]
     },
-    {
-      path: '/order',
-      name: 'OrderPage',
-      component: OrderPage
-    }
   ]
 })

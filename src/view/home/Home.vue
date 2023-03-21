@@ -37,7 +37,7 @@ export default {
     ProductCategory,
     ListBlog,
     FooterPage,
-    ListProductGird
+    ListProductGird,
   }
 }
 </script>

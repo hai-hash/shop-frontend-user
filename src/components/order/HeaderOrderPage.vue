@@ -1,6 +1,6 @@
 <template>
     <div class="order-header">
-        <a class="logo" href="/order">
+        <a class="logo" @click="goToHome">
             <img src="https://tocotocotea.com/wp-content/themes/tocotocotea/assets/images/logo.png" alt/>
         </a>
         <div class="search">
@@ -14,9 +14,12 @@
 </template>
 <script>
 export default {
-    name:'HeaderOrderPage'
-
-
+    name:'HeaderOrderPage',
+    methods: {
+    goToHome(){
+        this.$router.push("/");
+    }
+},
 }
 </script>
 <style scoped>
