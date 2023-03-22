@@ -4,7 +4,7 @@
             <h1 class="title">{{dataPosts ? dataPosts.title  : ''}}</h1>
             <div class="content">{{dataPosts ? dataPosts.content.substring(0,100) : ''}}[...] </div>
         </div>
-        <div class="technology-image">
+        <div class="technology-image" v-viewer>
             <img src="@/assets/vstp-1.jpg" />
         </div>
     </div>
@@ -31,18 +31,24 @@ export default {
 .technology-content {
     padding: 10px;
     width: 50%;
+    overflow: hidden;
 }
 
 .technology-image img {
+    flex-shrink: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 .technology-image {
     width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: pointer;
 }
 
 .technology-item {
