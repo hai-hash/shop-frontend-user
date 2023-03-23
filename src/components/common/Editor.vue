@@ -2,9 +2,6 @@
     <div>
         <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" @ready="onReady"
             @input="$emit('passData', $event)"></ckeditor>
-        <p v-bind="$props">Xem truoc</p>
-        <div id="preview-content" v-html="editorData" style="border: 1px solid black">
-        </div>
     </div>
 </template>
 <script>
@@ -18,6 +15,7 @@ export default {
             editorData: '',
             name: '',
             editorConfig: {
+                placeholder: 'Nhập nội dung',
                 toolbar: {
                     items: [
                         "selectAll",
