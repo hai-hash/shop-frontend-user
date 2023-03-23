@@ -2,7 +2,7 @@
     height: 78px !important;
     box-shadow: none !important;
 }
-body * {
+body p {
     font-family: Barlow;
     font-size: 14px;
 }
@@ -54,4 +54,14 @@ body * {
 
 #content p:has(img) {
     text-align: center;
+}
+.introduction{
+    font-size: 16px;
+}
+.introduction h1{
+    font-size: 20px;
+}
+
+.technology-wrap p{
+    font-size: 16px;
 }

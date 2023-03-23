@@ -392,6 +392,7 @@ export default {
     position: relative;
     width: 100%;
     z-index: 1000;
+    font-size: 14px;
 }
 
 .search-icon {

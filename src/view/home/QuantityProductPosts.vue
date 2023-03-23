@@ -76,6 +76,7 @@ export default {
   }
   .quantity-product-posts{
     justify-content: center;
+    font-size: 16px;
   }
   .posts-content{
   width: unset

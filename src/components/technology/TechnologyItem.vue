@@ -54,4 +54,7 @@ export default {
 .technology-item {
     background-color: rgb(242, 160, 41);
 }
+.content{
+    font-size: 16px;
+}
 </style>
