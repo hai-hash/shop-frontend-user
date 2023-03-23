@@ -42,4 +42,16 @@ body * {
 .sub-menu .v-sheet{
     background-color: unset !important;
 }
-  
+
+.ck-content {
+    border: 1px solid lightgray !important;
+    min-height: 400px !important;
+}
+
+#content img {
+    width: 80% !important;
+}
+
+#content p:has(img) {
+    text-align: center;
+}

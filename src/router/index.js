@@ -5,7 +5,8 @@ import PageUser from '@/view/PageUser/PageUser.vue'
 import Home from '@/view/home/Home.vue'
 import OrderPage from '@/view/order/OrderPage.vue'
 import Page from '@/view/Page/Page.vue'
-import BlogEditor from '@/view/Blog/Blog.vue'
+import BlogEditor from '@/view/Blog/BlogEditor.vue'
+import BlogView from '@/view/Blog/BlogView.vue'
 
 Vue.use(Router)
 
@@ -30,7 +31,12 @@ export default new Router({
               path: '/blog-editor',
               name: 'BlogEditor',
               component: BlogEditor
-            }
+            },
+            {
+              path: '/blog',
+              name: 'BlogView',
+              component: BlogView
+            },
           ]
         },
         {
@@ -38,7 +44,6 @@ export default new Router({
           name: 'OrderPage',
           component: OrderPage
         }
-       
       ]
     },
   ]
