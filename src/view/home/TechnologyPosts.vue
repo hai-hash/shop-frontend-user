@@ -17,17 +17,12 @@
                 </div>
             </div>
         </div>
-        <div class="posts">
-            <div class="posts-left">
-                <TechnologyItem :dataPosts="dataPosts[3]" />
+        <div class="image-post-list">
+            <div class="image-zoom" v-viewer>
+                <img src="@/assets/Slide_banner-1-1.jpg" alt />
             </div>
-            <div class="posts-right">
-                <div class="posts-right-top">
-                    <TechnologyItem :dataPosts="dataPosts[4]" />
-                </div>
-                <div class="posts-right-bottom">
-                    <TechnologyItem :dataPosts="dataPosts[5]" />
-                </div>
+            <div class="image-zoom" v-viewer>
+                <img src="@/assets/Slide_banner-2.jpg" alt />
             </div>
         </div>
     </div>
@@ -69,6 +64,9 @@ export default {
                 },
             ]
         }
+    },
+    methods:{
+
     }
 }
 </script>
@@ -117,12 +115,14 @@ export default {
 .posts-right-bottom {
     height: calc(50% - 5px);
 }
-.posts-sub{
+
+.posts-sub {
     display: flex;
     margin: 0 auto;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
+
 .posts-sub-item {
     width: 400px;
     margin: 5px;
@@ -130,12 +130,45 @@ export default {
     height: 175px;
 }
 
+.image-zoom {
+    height: 200px;
+    width: 450px;
+    margin: 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+.image-zoom img{
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
+.image-post-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 @media only screen and (max-width: 947px) {
 
-    /* .posts-left{
-        height: 250px;
-    } */
+    .posts-left{
+        height: 165px;
+    }
     .posts-right {
         width: 500px;
     }
-}</style>
+    .image-zoom{
+        width: 500px;
+    }
+}
+
+
+@media only screen and (max-width: 785px) {
+
+}
+</style>

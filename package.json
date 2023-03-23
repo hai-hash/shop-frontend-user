@@ -16,6 +16,7 @@
     "core-js": "^3.8.3",
     "owl.carousel": "^2.3.4",
     "query-string": "^8.1.0",
+    "v-viewer": "^1.6.4",
     "vue": "^2.6.14",
     "vue-awesome-swiper": "^4.1.1",
     "vue-fb-customer-chat": "^0.2.2",
