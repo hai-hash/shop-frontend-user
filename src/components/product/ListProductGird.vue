@@ -145,7 +145,7 @@ export default {
     align-items: center;
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
     /* font-size: $font-size-huge * 2; */
 }
 .swiper-button-prev,.swiper-button-next{
