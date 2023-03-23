@@ -62,6 +62,7 @@ export default {
     methods: {
         createBlog: function () {
             alert(JSON.stringify(this.blogData));
+            console.log(this.blogData.content);
         },
         getContent(data) {
             this.blogData.content = data;
