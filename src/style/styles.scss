@@ -39,6 +39,18 @@ body p {
     right: 0px !important;
     top: 160px !important;
 }
+
+.share-model .vueperslides__arrow--next{
+    right: -20px !important;
+    top: 30px !important;
+}
+
+.share-model .vueperslides__arrow--prev{
+    left: -25px !important;
+    top: 30px !important;
+}
+
+
 .sub-menu .v-sheet{
     background-color: unset !important;
 }
