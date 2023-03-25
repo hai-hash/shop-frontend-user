@@ -7,7 +7,7 @@
             <p>Chia sẻ</p>
             <vueper-slides :bullets="false" ref="myVueperSlides" :arrows="false" class="no-shadow share-model"
                 :visible-slides="6" slide-multiple :gap="3" :slide-ratio="1 / 4" :dragging-distance="200"
-                :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 } }">
+                :breakpoints="{ 800: { visibleSlides: 5, slideMultiple: 5 } }">
                 <vueper-slide v-for="(network, index) in networks" :key="index">
                     <template v-slot:content>
                         <SharingItem :network="network" :sharing="sharing"/>
@@ -91,7 +91,7 @@ export default {
 }
 </script>
   
-<style>
+<style scoped>
 h1 {
     text-align: center;
     margin: 50px 0 80px;
