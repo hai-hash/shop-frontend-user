@@ -82,7 +82,7 @@ export default {
 
             // console.log(this.blogData.avatar);
 
-        },
+        }
     },
     data() {
         return {

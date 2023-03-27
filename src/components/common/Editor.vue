@@ -6,6 +6,7 @@
 </template>
 <script>
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import MyUploadAdapter from '@/api/CustomUploaderPlugin'
 export default {
     name: 'EditorWrite',
     props: ['editorId'],
@@ -16,6 +17,7 @@ export default {
             name: '',
             editorConfig: {
                 placeholder: 'Nhập nội dung',
+                extraPlugins: [MyUploadAdapter],
                 toolbar: {
                     items: [
                         "selectAll",
