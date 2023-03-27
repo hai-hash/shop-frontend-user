@@ -15,7 +15,7 @@
                     <Editor @passData="getContent($event)" v-bind="$props" />
                 </div>
                 <v-card-actions>
-                    <v-btn size="x-large" color="success" @click="createBlog">
+                    <v-btn size="x-large" color="success" @click="handleCreateBlog">
                         Thêm mới
                         <v-icon end icon="mdi-vuetify"></v-icon>
                     </v-btn>
@@ -59,10 +59,23 @@ export default {
     components: {
         Editor
     },
+    data() {
+        return {
+            blogData: {
+                content: "",
+                title: "",
+                type: "BLOG",
+                avatar: null,
+            },
+            dialog: false,
+            isSelecting: false,
+            imageURL: null,
+            selectedImage: false
+        }
+    },
     methods: {
-        createBlog: function () {
-            alert(JSON.stringify(this.blogData));
-            console.log(this.blogData.content);
+        handleCreateBlog() {
+           //send api
         },
         getContent(data) {
             this.blogData.content = data;
@@ -82,21 +95,7 @@ export default {
 
             // console.log(this.blogData.avatar);
 
-        }
-    },
-    data() {
-        return {
-            blogData: {
-                content: "",
-                title: "",
-                type: "BLOG",
-                avatar: null,
-            },
-            dialog: false,
-            isSelecting: false,
-            imageURL: null,
-            selectedImage: false
-        }
+        },
     }
 }
 

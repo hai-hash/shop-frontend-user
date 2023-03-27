@@ -2,7 +2,7 @@
     <div class="technology-item">
         <div class="technology-content">
             <h1 class="title">{{dataPosts ? dataPosts.title  : ''}}</h1>
-            <div class="content">{{dataPosts ? dataPosts.content.substring(0,100) : ''}}[...] </div>
+            <div class="content">{{dataPosts ? dataPosts.content : ''}} </div>
         </div>
         <div class="technology-image" v-viewer>
             <img src="@/assets/vstp-1.jpg" />
@@ -31,7 +31,6 @@ export default {
 .technology-content {
     padding: 10px;
     width: 50%;
-    overflow: hidden;
 }
 
 .technology-image img {
@@ -53,5 +52,11 @@ export default {
 
 .technology-item {
     background-color: rgb(242, 160, 41);
+}
+.content{
+    font-size: 14px;
+    overflow: hidden;
+    height: 83px;
+    text-overflow: ellipsis;
 }
 </style>

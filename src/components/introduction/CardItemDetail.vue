@@ -34,4 +34,7 @@ export default {
 .title-card-item {
     margin: 5px 0px 5px 0px;
 }
+p{
+    font-size: 14px;
+}
 </style>

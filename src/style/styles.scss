@@ -2,9 +2,9 @@
     height: 78px !important;
     box-shadow: none !important;
 }
-body * {
-    font-family: Barlow;
-    font-size: 14px;
+body p {
+    // font-family: Barlow;
+    // font-size: 14px;
 }
 .v-toolbar__content{
     width: 1140px ;
@@ -39,6 +39,18 @@ body * {
     right: 0px !important;
     top: 160px !important;
 }
+
+.share-model .vueperslides__arrow--next{
+    right: -20px !important;
+    top: 30px !important;
+}
+
+.share-model .vueperslides__arrow--prev{
+    left: -25px !important;
+    top: 30px !important;
+}
+
+
 .sub-menu .v-sheet{
     background-color: unset !important;
 }
@@ -54,4 +66,14 @@ body * {
 
 #content p:has(img) {
     text-align: center;
+}
+.introduction{
+    font-size: 16px;
+}
+.introduction h1{
+    font-size: 20px;
+}
+
+.technology-wrap p{
+    font-size: 16px;
 }

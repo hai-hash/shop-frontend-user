@@ -1,5 +1,5 @@
 <template>
-    <div class="product-item">
+    <div class="product-item" @click="goToDetailProduct">
         <v-card class="image-item-product">
             <img src="@/assets/product-demo.png" alt />
         </v-card>
@@ -17,6 +17,11 @@ export default {
     name: 'ItemProduct',
     props:{
         item:Object
+    },
+    methods:{
+        goToDetailProduct(){
+            this.$router.push(`/product-detail?name=tenproduct`)
+        }
     }
 }
 </script>
@@ -55,7 +60,8 @@ export default {
 }
 
 .product-item {
-    height: 100%
+    height: 100%;
+    cursor: pointer;
 }
 
 @media (min-width: 960px) {}

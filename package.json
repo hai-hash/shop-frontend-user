@@ -23,6 +23,7 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-fb-customer-chat": "^0.2.2",
     "vue-router": "^3.6.5",
+    "vue-social-sharing": "^3.0.9",
     "vue2-editor": "^2.10.3",
     "vueperslides": "^2.16.0",
     "vuetify": "^2.6.14"
