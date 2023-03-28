@@ -5,10 +5,10 @@ const BlogService = {
         const url = urls.GET_ALL;
         return axiosClient.get(url, { params });
     },
-    uploadImage: (data) => {
-        const url = urls.UPLOAD_IMAGE;
-        return axiosClient.post(url, data);
-    }
+    create: (params) => {
+        const url = urls.CREATE;
+        return axiosClient.post(url, data, {})
+    },
 }
 
 export default BlogService;

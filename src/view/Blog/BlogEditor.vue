@@ -15,7 +15,7 @@
                     <ckeditor :editor="editor" v-model="blogData.content" :config="editorConfig" @ready="onReady"></ckeditor>
                 </div>
                 <v-card-actions>
-                    <v-btn size="x-large" color="success" @click="handleCreateBlog">
+                    <v-btn size="x-large" color="success" @click="handleCreateBlog" :disabled="isDisableCreateBtn">
                         Thêm mới
                         <v-icon end icon="mdi-vuetify"></v-icon>
                     </v-btn>
@@ -49,9 +49,17 @@
 <script>
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import MyCustomUploadAdapterPlugin from '@/api/CustomUploaderPlugin';
+// import UploadService from '@/api/services/UploadService';
+import {items} from '@/api/configs/CKEditorConfig';
+
 export default {
     name: 'BlogEditor',
     components: {
+    },
+    computed: {
+        isDisableCreateBtn () {
+            return this.isCreateDisable;
+        }
     },
     data() {
         return {
@@ -65,62 +73,13 @@ export default {
             isSelecting: false,
             imageURL: null,
             selectedImage: false,
+            isCreateDisable: false,
             editor: DecoupledEditor,
             editorConfig: {
                 placeholder: 'Nhập nội dung',
                 extraPlugins: [MyCustomUploadAdapterPlugin],
                 toolbar: {
-                    items: [
-                        "selectAll",
-                        "undo",
-                        "redo",
-                        "alignment:left",
-                        "alignment:right",
-                        "alignment:center",
-                        "alignment:justify",
-                        "alignment",
-                        "fontSize",
-                        "fontFamily",
-                        "fontColor",
-                        "fontBackgroundColor",
-                        "bold",
-                        "italic",
-                        "strikethrough",
-                        "underline",
-                        "blockQuote",
-                        "link",
-                        "ckfinder",
-                        "uploadImage",
-                        "imageUpload",
-                        "heading",
-                        "imageTextAlternative",
-                        "toggleImageCaption",
-                        "resizeImage:original",
-                        "resizeImage:25",
-                        "resizeImage:50",
-                        "resizeImage:75",
-                        "resizeImage",
-                        "imageResize",
-                        "imageStyle:inline",
-                        "imageStyle:alignLeft",
-                        "imageStyle:alignRight",
-                        "imageStyle:alignCenter",
-                        "imageStyle:alignBlockLeft",
-                        "imageStyle:alignBlockRight",
-                        "imageStyle:block",
-                        "imageStyle:side",
-                        "imageStyle:wrapText",
-                        "imageStyle:breakText",
-                        "indent",
-                        "outdent",
-                        "numberedList",
-                        "bulletedList",
-                        "mediaEmbed",
-                        // "insertTable",
-                        // "tableColumn",
-                        // "tableRow",
-                        // "mergeTableCells",
-                    ]
+                    items: items
                 }
             }
         }
@@ -142,10 +101,25 @@ export default {
             }, { once: true });
             this.$refs.uploader.click();
         },
-        onFileChanged(e) {
+        async onFileChanged(e) {
+            this.isCreateDisable = true;
             this.blogData.avatar = e.target.files[0].name;
             this.imageURL = URL.createObjectURL(e.target.files[0])
             this.selectedImage = true
+
+            const data = new FormData();
+            data.append('file', e.target.files[0]);
+            data.append('upload_preset', 'filmtvimages');
+            const response = await fetch("https://api.cloudinary.com/v1_1/filmtv/image/upload", {
+                method: 'POST',
+                // headers: {
+                //    // 'content-type': 'application/json',
+                //     'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
+                // },
+                body: data
+            })
+            console.log(response)
+            this.isCreateDisable = false;
             // UPLOAD FILE HEAR
 
             // console.log(this.blogData.avatar);
@@ -171,9 +145,5 @@ export default {
 #preview-img {
     height: 300px;
     width: 300px;
-}
-
-#preview-content {
-   padding: 10px 10px 10px 10px !important;
 }
 </style>
