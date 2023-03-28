@@ -12,7 +12,7 @@
                     <img v-if="selectedImage" v-bind:src="imageURL" id="preview-img"/>
                 </div>
                 <div id="blog-content">
-                    <Editor @passData="getContent($event)" v-bind="$props" />
+                    <ckeditor :editor="editor" v-model="blogData.content" :config="editorConfig" @ready="onReady"></ckeditor>
                 </div>
                 <v-card-actions>
                     <v-btn size="x-large" color="success" @click="handleCreateBlog">
@@ -47,17 +47,11 @@
 </template>
 
 <script>
-import Editor from '@/components/common/Editor.vue'
+import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import MyCustomUploadAdapterPlugin from '@/api/CustomUploaderPlugin';
 export default {
     name: 'BlogEditor',
-    props: {
-        editorId: {
-            type: String,
-            default: 'blog-content',
-        },
-    },
     components: {
-        Editor
     },
     data() {
         return {
@@ -70,10 +64,71 @@ export default {
             dialog: false,
             isSelecting: false,
             imageURL: null,
-            selectedImage: false
+            selectedImage: false,
+            editor: DecoupledEditor,
+            editorConfig: {
+                placeholder: 'Nhập nội dung',
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+                toolbar: {
+                    items: [
+                        "selectAll",
+                        "undo",
+                        "redo",
+                        "alignment:left",
+                        "alignment:right",
+                        "alignment:center",
+                        "alignment:justify",
+                        "alignment",
+                        "fontSize",
+                        "fontFamily",
+                        "fontColor",
+                        "fontBackgroundColor",
+                        "bold",
+                        "italic",
+                        "strikethrough",
+                        "underline",
+                        "blockQuote",
+                        "link",
+                        "ckfinder",
+                        "uploadImage",
+                        "imageUpload",
+                        "heading",
+                        "imageTextAlternative",
+                        "toggleImageCaption",
+                        "resizeImage:original",
+                        "resizeImage:25",
+                        "resizeImage:50",
+                        "resizeImage:75",
+                        "resizeImage",
+                        "imageResize",
+                        "imageStyle:inline",
+                        "imageStyle:alignLeft",
+                        "imageStyle:alignRight",
+                        "imageStyle:alignCenter",
+                        "imageStyle:alignBlockLeft",
+                        "imageStyle:alignBlockRight",
+                        "imageStyle:block",
+                        "imageStyle:side",
+                        "imageStyle:wrapText",
+                        "imageStyle:breakText",
+                        "indent",
+                        "outdent",
+                        "numberedList",
+                        "bulletedList",
+                        "mediaEmbed",
+                        // "insertTable",
+                        // "tableColumn",
+                        // "tableRow",
+                        // "mergeTableCells",
+                    ]
+                }
+            }
         }
     },
     methods: {
+        onReady(editor) {
+            document.getElementById('blog-content').prepend(editor.ui.view.toolbar.element);
+        },
         handleCreateBlog() {
            //send api
         },
