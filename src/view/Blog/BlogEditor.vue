@@ -12,7 +12,7 @@
                     <img v-if="selectedImage" v-bind:src="imageURL" id="preview-img"/>
                 </div>
                 <div id="blog-content">
-                    <ckeditor :editor="editor" v-model="blogData.content" :config="editorConfig" @ready="onReady"></ckeditor>
+                    <ckeditor :editor="editor" v-model="blogData.long_desc" :config="editorConfig" @ready="onReady"></ckeditor>
                 </div>
                 <v-card-actions>
                     <v-btn size="x-large" color="success" @click="handleCreateBlog" :disabled="isDisableCreateBtn">
@@ -33,7 +33,7 @@
                         Xem trước
                     </v-card-title>
                     <v-divider></v-divider>
-                    <div id="preview-content" v-html="blogData.content">
+                    <div id="preview-content" v-html="blogData.long_desc">
                     </div>
                     <v-divider></v-divider>
                     <v-card-actions>
@@ -42,6 +42,9 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            <v-snackbar v-model="showMessage" left :color="messageBg" variant="tonal">
+                {{ message }}
+            </v-snackbar>
         </div>
     </div>
 </template>
@@ -49,8 +52,8 @@
 <script>
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import MyCustomUploadAdapterPlugin from '@/api/CustomUploaderPlugin';
-// import UploadService from '@/api/services/UploadService';
 import {items} from '@/api/configs/CKEditorConfig';
+// import BlogService from '@/api/services/BlogService';
 
 export default {
     name: 'BlogEditor',
@@ -64,10 +67,11 @@ export default {
     data() {
         return {
             blogData: {
-                content: "",
+                page_type: 1,
+                long_desc: "",
+                short_desc: "",
                 title: "",
-                type: "BLOG",
-                avatar: null,
+                image: null,
             },
             dialog: false,
             isSelecting: false,
@@ -75,6 +79,9 @@ export default {
             selectedImage: false,
             isCreateDisable: false,
             editor: DecoupledEditor,
+            showMessage: false,
+            message: "",
+            messageBg: "",
             editorConfig: {
                 placeholder: 'Nhập nội dung',
                 extraPlugins: [MyCustomUploadAdapterPlugin],
@@ -88,11 +95,29 @@ export default {
         onReady(editor) {
             document.getElementById('blog-content').prepend(editor.ui.view.toolbar.element);
         },
-        handleCreateBlog() {
-           //send api
+        async handleCreateBlog() {
+            await fetch('https://hina-pqmjv.appengine.bfcplatform.vn/page1', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
+                },
+                body: JSON.stringify(this.blogData)
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                this.message = "Thêm mới bài viết thành công";
+                this.messageBg = "success"
+                this.showMessage = true;
+            }).catch(() => {
+                this.message = "Thêm mới bài viết thất bại";
+                this.messageBg = "error"
+                this.showMessage = true;
+            })
         },
         getContent(data) {
-            this.blogData.content = data;
+            this.blogData.long_desc = data;
         },
         handleFileImport() {
             this.isSelecting = true;
@@ -103,27 +128,26 @@ export default {
         },
         async onFileChanged(e) {
             this.isCreateDisable = true;
-            this.blogData.avatar = e.target.files[0].name;
+
+            //preview image
             this.imageURL = URL.createObjectURL(e.target.files[0])
             this.selectedImage = true
 
             const data = new FormData();
             data.append('file', e.target.files[0]);
-            data.append('upload_preset', 'filmtvimages');
-            const response = await fetch("https://api.cloudinary.com/v1_1/filmtv/image/upload", {
+            await fetch('https://hina-pqmjv.appengine.bfcplatform.vn/image', {
                 method: 'POST',
-                // headers: {
-                //    // 'content-type': 'application/json',
-                //     'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
-                // },
+                headers: {
+                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
+                },
                 body: data
             })
-            console.log(response)
+            .then((response) => response.json())
+            .then((data) => {
+                let url = data.file;
+                this.blogData.image = url;
+            })
             this.isCreateDisable = false;
-            // UPLOAD FILE HEAR
-
-            // console.log(this.blogData.avatar);
-
         },
     }
 }

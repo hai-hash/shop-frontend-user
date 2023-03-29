@@ -1,2 +1,2 @@
 export const GET_ALL = ''
-export const CREATE = ''
+export const CREATE = '/page'

@@ -5,9 +5,9 @@ const BlogService = {
         const url = urls.GET_ALL;
         return axiosClient.get(url, { params });
     },
-    create: (params) => {
+    create: (data) => {
         const url = urls.CREATE;
-        return axiosClient.post(url, data, {})
+        return axiosClient.post(url, data)
     },
 }
 
