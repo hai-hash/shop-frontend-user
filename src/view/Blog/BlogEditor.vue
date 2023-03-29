@@ -43,8 +43,18 @@
                 </v-card>
             </v-dialog>
             <v-snackbar v-model="showMessage" left :color="messageBg" variant="tonal">
-                {{ message }}
-            </v-snackbar>
+                    {{ message }}
+            
+                    <template v-slot:actions>
+                    <v-btn
+                        color="black"
+                        variant="text"
+                        @click="showMessage = false"
+                    >
+                        Close
+                    </v-btn>
+                    </template>
+          </v-snackbar>
         </div>
     </div>
 </template>
@@ -96,7 +106,7 @@ export default {
             document.getElementById('blog-content').prepend(editor.ui.view.toolbar.element);
         },
         async handleCreateBlog() {
-            await fetch('https://hina-pqmjv.appengine.bfcplatform.vn/page1', {
+            await fetch('https://hina-pqmjv.appengine.bfcplatform.vn/page', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
