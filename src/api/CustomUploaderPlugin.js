@@ -30,7 +30,8 @@ class MyUploadAdapter {
         // integration to choose the right communication channel. This example uses
         // a POST request with JSON as a data structure but your configuration
         // could be different.
-        xhr.open( 'POST', 'https://api.cloudinary.com/v1_1/filmtv/image/upload', true );
+        xhr.open( 'POST', 'https://hina-pqmjv.appengine.bfcplatform.vn/image', true );
+        xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A');
         xhr.responseType = 'json';
     }
 
@@ -60,7 +61,7 @@ class MyUploadAdapter {
             // This URL will be used to display the image in the content. Learn more in the
             // UploadAdapter#upload documentation.
             resolve( {
-                default: response.url
+                default: response.file
             } );
         } );
 
@@ -83,7 +84,6 @@ class MyUploadAdapter {
         const data = new FormData();
 
         data.append('file', file);
-        data.append('upload_preset', 'filmtvimages');
         // Important note: This is the right place to implement security mechanisms
         // like authentication and CSRF protection. For instance, you can use
         // XMLHttpRequest.setRequestHeader() to set the request headers containing

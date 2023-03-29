@@ -1,2 +1,2 @@
 export const GET_ALL = ''
-export const UPLOAD_IMAGE = '/image'
+export const CREATE = '/page'
