@@ -2,18 +2,45 @@
     <div>
         <div id="blog">
             <v-form>
+                <h2 style="margin-top: 20px;">Nội dung</h2>
                 <v-text-field clearable label="Tiêu đề bài viết" variant="outlined" v-model="blogData.title"></v-text-field>
+                <v-select
+                    label="Chọn loại trang"
+                    outlined
+                    :items="pageTypes"
+                    item-value="value"
+                    item-text="text"
+                    v-model="blogData.page_type"
+                ></v-select>
                 <v-btn color="primary" dark :loading="isSelecting" @click="handleFileImport">
                     Chọn ảnh đại diện
                 </v-btn>
                 <input ref="uploader" class="d-none" type="file" @change="onFileChanged" accept="image/*" />
-                
                 <div id="preview">
                     <img v-if="selectedImage" v-bind:src="imageURL" id="preview-img"/>
                 </div>
+                <v-textarea
+                    outlined
+                    label="Mô tả ngắn"
+                    placeholder="Mô tả ngắn"
+                    v-model="blogData.short_desc"
+                ></v-textarea>
                 <div id="blog-content">
                     <ckeditor :editor="editor" v-model="blogData.long_desc" :config="editorConfig" @ready="onReady"></ckeditor>
                 </div>
+
+                <h2 style="margin-top: 20px;">SEO Website</h2>
+
+                <v-text-field clearable label="Meta title" variant="outlined" v-model="blogData.seo.meta_title"></v-text-field>
+                <v-text-field clearable label="Từ khóa" variant="outlined" v-model="blogData.seo.meta_keywords"></v-text-field>
+                <v-textarea
+                    outlined
+                    label="Meta description"
+                    placeholder="Meta description"
+                    v-model="blogData.seo.meta_description"
+                ></v-textarea>
+                <v-text-field clearable label="Slug" variant="outlined" v-model="blogData.seo.slug"></v-text-field>
+
                 <v-card-actions>
                     <v-btn size="x-large" color="success" @click="handleCreateBlog" :disabled="isDisableCreateBtn">
                         Thêm mới
@@ -25,7 +52,6 @@
                         </v-btn>
                     </v-col>
                 </v-card-actions>
-
             </v-form>
             <v-dialog v-model="dialog" width="800">
                 <v-card>
@@ -62,8 +88,9 @@
 <script>
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import MyCustomUploadAdapterPlugin from '@/api/CustomUploaderPlugin';
+import * as types from '@/api/common/PageType';
 import {items} from '@/api/configs/CKEditorConfig';
-// import BlogService from '@/api/services/BlogService';
+import UploadService from '@/api/services/UploadService';
 
 export default {
     name: 'BlogEditor',
@@ -77,11 +104,17 @@ export default {
     data() {
         return {
             blogData: {
-                page_type: 1,
+                page_type: types.BLOG,
                 long_desc: "",
                 short_desc: "",
                 title: "",
                 image: null,
+                seo: {
+                    meta_title: "",
+                    meta_keywords: "",
+                    meta_description: "",
+                    slug: "",
+                },
             },
             dialog: false,
             isSelecting: false,
@@ -92,8 +125,14 @@ export default {
             showMessage: false,
             message: "",
             messageBg: "",
+            pageTypes: [
+                {
+                    value: types.BLOG,
+                    text: "Blog"
+                }
+            ],
             editorConfig: {
-                placeholder: 'Nhập nội dung',
+                placeholder: 'Nhập mô tả chi tiết',
                 extraPlugins: [MyCustomUploadAdapterPlugin],
                 toolbar: {
                     items: items
@@ -126,9 +165,6 @@ export default {
                 this.showMessage = true;
             })
         },
-        getContent(data) {
-            this.blogData.long_desc = data;
-        },
         handleFileImport() {
             this.isSelecting = true;
             window.addEventListener('focus', () => {
@@ -143,20 +179,10 @@ export default {
             this.imageURL = URL.createObjectURL(e.target.files[0])
             this.selectedImage = true
 
-            const data = new FormData();
-            data.append('file', e.target.files[0]);
-            await fetch('https://hina-pqmjv.appengine.bfcplatform.vn/image', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
-                },
-                body: data
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                let url = data.file;
-                this.blogData.image = url;
-            })
+            //upload image
+            let uploadURL = await UploadService.uploadImage(e.target.files[0]);
+            console.log(uploadURL);
+            this.blogData.image = uploadURL;
             this.isCreateDisable = false;
         },
     }
