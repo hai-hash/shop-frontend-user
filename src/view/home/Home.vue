@@ -2,9 +2,9 @@
   <div class="body-user-page">
     <CarouselWrapper />
     <DiscountHomePage />
-    <ProductCategory />
-    <ListProductGird title="SẢN PHẨM BÁN CHẠY"/>
-    <ListProductGird title="SẢN PHẨM MỚI"/>
+    <ProductCategory :listCategory="listCategory"/>
+    <ListProductGird title="SẢN PHẨM BÁN CHẠY" :listProduct = "listProductHot"/>
+    <ListProductGird title="SẢN PHẨM MỚI" :listProduct = "listProductNew"/>
     <TechnologyPosts />
     <QuantityProductPosts />
     <IntroductionTashapy />
@@ -25,6 +25,7 @@ import ProductCategory from '@/view/home/ProductCategory.vue'
 import ListBlog from './ListBlog.vue';
 import FooterPage from '@/view/home/FooterPage.vue';
 import ListProductGird from '@/components/product/ListProductGird.vue';
+import productApi from '@/api/method/product/productApi';
 export default {
   name: 'App',
   components: {
@@ -38,6 +39,45 @@ export default {
     ListBlog,
     FooterPage,
     ListProductGird,
+  },
+  created() {
+    this.getProduct();
+    this.getCategories();
+  },
+  data(){
+    return{
+      listProductHot:[],
+      listProductNew:[],
+      listCategory:[]
+    }
+  },
+  methods: {
+    async getProduct() {
+      const params = {
+        page: 1,
+        limit: 100,
+      }
+      try {
+        const data = await productApi.getProduct(params);
+        this.listProductHot = data;
+        this.listProductNew = data;
+      } catch (error) {
+        console.log(error)
+      } 
+    },
+    async getCategories() {
+      const data = {
+        page: 1,
+        limit: 100,
+        filter:{}
+      }
+      try {
+        const res = await productApi.getCategories(data);
+        this.listCategory = res;
+      } catch (error) {
+        console.log(error)
+      } 
+    }
   }
 }
 </script>

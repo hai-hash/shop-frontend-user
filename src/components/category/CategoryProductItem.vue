@@ -1,9 +1,9 @@
 <template>
      <div class="category-item-product">
-            <img src="@/assets/category-2.jpg"/>
+            <img :src="itemData.image" alt/>
             <div class="content-product-category">
                 <h1 class="title-category-item-product">{{ itemData.title }}</h1>
-            <v-btn color="#d46605" class="button-view-now">XEM NGAY</v-btn>
+            <v-btn color="#d46605" class="button-view-now" @click="handleViewListProductByCategory">XEM NGAY</v-btn>
             </div>
            
         </div>
@@ -13,6 +13,11 @@ export default{
     name:'ProductCategoryItem',
     props:{
         itemData:Object
+    },
+    methods:{
+        handleViewListProductByCategory(){
+            this.$router.push(`/product?category=${this.itemData.id}`);
+        }
     }
 }
 </script>

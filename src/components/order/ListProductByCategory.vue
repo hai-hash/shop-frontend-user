@@ -5,26 +5,62 @@
             <div class="extend-icon">close</div>
         </div>
         <div class="list-product">
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
+            <ProductItem v-for="(item, index) in listProduct" :key="index" :item="item" />
         </div>
 
     </div>
-
 </template>
 <script>
 import ProductItem from '@/components/order/ProductItem.vue'
-export default{
-    name:'ListProductByCategory',
-    components:{
+import productApi from '@/api/method/product/productApi';
+export default {
+    name: 'ListProductByCategory',
+    components: {
         ProductItem
+    },
+    watch: {
+        '$route.query'() {
+            this.getProduct()
+        }
+    },
+    data() {
+        return {
+            listProduct: []
+        }
+    },
+    created() {
+        this.getProduct();
+    },
+    methods: {
+        async getProduct() {
+            let filter = {};
+            if(this.$route.query.category){
+                filter = {
+                    $and: [
+                        {
+                            category_ids: {
+                                $in: [this.$route.query.category]
+                            }
+                        }
+                    ]
+                }
+            }
+           
+            const data = {
+                page: 1,
+                limit: 10,
+                filter,
+                sort: { sell_quantity: 1 }
+            }
+            try {
+                const res = await productApi.getProductByFilter(data);
+                this.listProduct = res;
+            } catch (error) {
+                console.log(error)
+            }
+
+
+        }
     }
 }
 </script>
@@ -42,12 +78,13 @@ export default{
     cursor: pointer;
     align-items: center;
 }
+
 .category-title {
     font-weight: bold;
 }
+
 .list-product {
     display: flex;
     flex-wrap: wrap;
     padding: 0 5px;
-}
-</style>
+}</style>

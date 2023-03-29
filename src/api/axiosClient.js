@@ -1,13 +1,11 @@
 import axios from 'axios';
-import queryString from 'query-string';
 
 const axiosClient = axios.create({
     baseURL: "https://hina-pqmjv.appengine.bfcplatform.vn",
     headers: {
         'content-type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
     },
-    paramsSerializer: params => queryString.stringify(params),
+    timeout: 5000,
 });
 
 axiosClient.interceptors.request.use(async (config) => {

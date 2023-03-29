@@ -39,14 +39,14 @@ export default new Router({
               component: BlogView
             },
             {
-              path: '/product-detail',
+              path: '/product-detail/:slug',
               name: 'DetailProduct',
               component: DetailProduct
             },
           ]
         },
         {
-          path: '/order',
+          path: '/product',
           name: 'OrderPage',
           component: OrderPage
         }

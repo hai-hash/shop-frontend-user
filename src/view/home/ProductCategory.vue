@@ -5,7 +5,7 @@
     <div class="border-bottom-title"></div>
     </div>
     <div class="list-product-category">
-        <CategoryProductItem v-for="item in dataCategoryProduct" :key="item.id" :itemData="item"/>
+        <CategoryProductItem v-for="(item,index) in listCategory" :key="index" :itemData="item"/>
     </div>
     
 </div>
@@ -17,30 +17,11 @@ export default{
     components:{
         CategoryProductItem 
     },
+    props:{
+        listCategory:[]
+    },
     data(){
         return {
-            dataCategoryProduct:[
-                {
-                    id:1,
-                    title:'ĐÔNG TRÙNG HẠ THẢO',
-                    image:'@/assets/category-2.jpg'
-                },
-                {
-                    id:2,
-                    title:'TRÀ THẢO DƯỢC',
-                    image:'@/assets/category-2.jpg'
-                },
-                {
-                    id:3,
-                    title:'QUÀ TẶNG',
-                    image:'@/assets/category-2.jpg'
-                },
-                {
-                    id:4,
-                    title:'DÔNG TRÙNG HẠ THẢO',
-                    image:'@/assets/category-2.jpg'
-                }
-            ]
         }
     }
 }

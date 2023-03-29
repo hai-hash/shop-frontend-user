@@ -2,33 +2,45 @@
     <div class="order-sidebar sidebar-left">
         <div class="cat-title">Danh mục</div>
         <div class="list-cat">
-            <div class="cat-item">
-                <div class="cat-name">Món nổi bật</div>
+            <div class="cat-item" v-for="(item,index) in listCategory" :key="index" @click="handleChangeCategory(item.id)">
+                <div class="cat-name">{{ item.title }}</div>
                 <div class="cat-amount">24</div>
-            </div>
-            <div class="cat-item">
-                <div class="cat-name">Trà Sữa</div>
-                <div class="cat-amount">14</div>
-            </div>
-            <div class="cat-item">
-                <div class="cat-name">Fresh Fruit Tea</div>
-                <div class="cat-amount">10</div>
-            </div>
-            <div class="cat-item">
-                <div class="cat-name">Macchiato Cream Cheese</div>
-                <div class="cat-amount">7</div>
-            </div>
-            <div class="cat-item">
-                <div class="cat-name">Sữa Chua Dẻo</div>
-                <div class="cat-amount">10</div>
             </div>
         </div>
     </div>
 
 </template>
 <script>
+import productApi from '@/api/method/product/productApi';
 export default {
-    name: 'OrderSidebar'
+    name: 'OrderSidebar',
+    data(){
+        return{
+            listCategory:[]
+        }
+    },
+    created(){
+        this.getCategories();
+    },
+    methods:{
+    async getCategories() {
+      const data = {
+        page: 1,
+        limit: 100,
+        filter:{}
+      }
+      try {
+        const res = await productApi.getCategories(data);
+        this.listCategory = res;
+      } catch (error) {
+        console.log(error)
+      } 
+    },
+    handleChangeCategory(idCategory){
+        this.$router.push(`/product?category=${idCategory}`);
+    }
+    }
+
 }
 </script>
 <style scoped>

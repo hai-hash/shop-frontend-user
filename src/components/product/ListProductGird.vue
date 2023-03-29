@@ -33,7 +33,8 @@ export default {
         isPagination: {
             type: Boolean,
             default: false
-        }
+        },
+        listProduct:Array
     },
     components: {
         Swiper,
@@ -76,58 +77,6 @@ export default {
                     }
                 }
             },
-            listProduct: [
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                },
-                {
-                    salePrice: '380.000đ',
-                    primaryPrice: '500.000đ',
-                    description: 'Đây là sản phẩm từ thiên nhiên rất tốt cho sức khỏe'
-                }
-            ]
         }
     }
 }

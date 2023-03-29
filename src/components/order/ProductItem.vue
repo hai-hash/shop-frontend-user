@@ -1,10 +1,10 @@
 <template>
-    <div class="product">
-        <img src="https://tocotocotea.com/wp-content/uploads/2023/01/Tra-sua-pho-mai-tuoi.png" alt>
-        <div class="product-name">Trà Sữa Phô Mai Tươi</div>
-        <div class="product-price">
-            <p class="product-origin-price">28,000đ</p>
-            <p class="product-sale-price">28,000đ</p>
+    <div class="product" v-viewer>
+        <img :src="item.landing_page_image" alt>
+        <div class="product-name" @click="handleClickViewDetail()">{{ item.title }}</div>
+        <div class="product-price" @click="handleClickViewDetail()">
+            <p class="product-origin-price">{{item.price.list_price}}đ</p>
+            <p class="product-sale-price">{{item.price.sale_price}}đ</p>
         </div>
         <div class="btn-increase">+</div>
     </div>
@@ -12,7 +12,15 @@
 </template>
 <script>
 export default {
-    name:'ProductItem'
+    name:'ProductItem',
+    props:{
+        item:Object
+    },
+    methods:{
+        handleClickViewDetail(){
+            this.$router.push(`/product-detail/${this.item.seo.slug}?id=${this.item.id}`)
+        }
+    }
 }
 </script>
 
@@ -30,6 +38,8 @@ export default {
 
 .product img {
     width: 100%;
+    height: 60%;
+    object-fit: cover;
 }
 
 .product .product-name {

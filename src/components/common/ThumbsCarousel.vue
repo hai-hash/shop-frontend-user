@@ -44,14 +44,11 @@
             slidesPerView: 'auto',
             touchRatio: 0.2,
             slideToClickedSlide: true
-          },
-          listImage:[
-          "https://thaoduoctashapy.com/wp-content/uploads/2022/09/tra-sen-som-2-600x800.jpg",
-          "https://thaoduoctashapy.com/wp-content/uploads/2022/09/tra-sen-som-3-600x800.jpg",
-          "https://thaoduoctashapy.com/wp-content/uploads/2022/09/tra-sen-som-4-600x800.jpg",
-          "https://thaoduoctashapy.com/wp-content/uploads/2022/09/tra-sen-som-5-600x800.jpg"
-          ]
+          }
         }
+      },
+      props:{
+        listImage:Array
       },
       mounted() {
         this.$nextTick(() => {
