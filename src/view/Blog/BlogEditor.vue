@@ -82,19 +82,23 @@
                     </template>
           </v-snackbar>
         </div>
+        <FooterPage />
     </div>
 </template>
 
 <script>
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import FooterPage from '@/view/home/FooterPage.vue';
 import MyCustomUploadAdapterPlugin from '@/api/CustomUploaderPlugin';
 import * as types from '@/api/common/PageType';
 import {items} from '@/api/configs/CKEditorConfig';
 import UploadService from '@/api/services/UploadService';
+import BlogService from '@/api/services/BlogService';
 
 export default {
     name: 'BlogEditor',
     components: {
+        FooterPage
     },
     computed: {
         isDisableCreateBtn () {
@@ -105,15 +109,15 @@ export default {
         return {
             blogData: {
                 page_type: types.BLOG,
-                long_desc: "",
-                short_desc: "",
-                title: "",
+                long_desc: '',
+                short_desc: '',
+                title: '',
                 image: null,
                 seo: {
-                    meta_title: "",
-                    meta_keywords: "",
-                    meta_description: "",
-                    slug: "",
+                    meta_title: '',
+                    meta_keywords: '',
+                    meta_description: '',
+                    slug: '',
                 },
             },
             dialog: false,
@@ -123,12 +127,12 @@ export default {
             isCreateDisable: false,
             editor: DecoupledEditor,
             showMessage: false,
-            message: "",
-            messageBg: "",
+            message: '',
+            messageBg: '',
             pageTypes: [
                 {
                     value: types.BLOG,
-                    text: "Blog"
+                    text: 'Blog'
                 }
             ],
             editorConfig: {
@@ -145,25 +149,18 @@ export default {
             document.getElementById('blog-content').prepend(editor.ui.view.toolbar.element);
         },
         async handleCreateBlog() {
-            await fetch('https://hina-pqmjv.appengine.bfcplatform.vn/page', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzODU2NzIsImlhdCI6MTY3OTc4MDg3MiwibmJmIjoxNjc5NzgwODcyLCJzdWIiOiI2NDBhZmRhZTk5Y2M3ZWMwN2Y3NTg2YjYifQ.DJXFi0-2jFIZ3y8JIBUym8LEfLNbSqR_R1F81wuiSafr9t1b3bxFOi6rex3ELTjeZIZxwKtyzmi5bTviN9h43A',
-                },
-                body: JSON.stringify(this.blogData)
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                this.message = "Thêm mới bài viết thành công";
-                this.messageBg = "success"
+            try {
+                const res = await BlogService.create(this.blogData);
+                this.message = 'Thêm mới bài viết thành công';
+                this.messageBg = 'success'
                 this.showMessage = true;
-            }).catch(() => {
-                this.message = "Thêm mới bài viết thất bại";
-                this.messageBg = "error"
+                console.log(res);
+            } catch (e) {
+                console.log(e);
+                this.message = 'Thêm mới bài viết thất bại';
+                this.messageBg = 'error'
                 this.showMessage = true;
-            })
+            }
         },
         handleFileImport() {
             this.isSelecting = true;
@@ -181,7 +178,6 @@ export default {
 
             //upload image
             let uploadURL = await UploadService.uploadImage(e.target.files[0]);
-            console.log(uploadURL);
             this.blogData.image = uploadURL;
             this.isCreateDisable = false;
         },
