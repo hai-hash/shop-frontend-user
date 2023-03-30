@@ -9,6 +9,14 @@ const BlogService = {
         const url = urls.CREATE;
         return axiosClient.post(url, data)
     },
+    getPageByFilter:(data) =>{
+        const url = '/pages';
+        return axiosClient.post(url,data)
+    },
+    getPagesByParam:(params) =>{
+        const url = '/page'
+        return axiosClient.get(url,{params});
+    }
 }
 
 export default BlogService;

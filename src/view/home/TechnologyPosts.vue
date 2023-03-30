@@ -29,6 +29,8 @@
 </template>
 <script>
 import TechnologyItem from '@/components/technology/TechnologyItem.vue';
+import pageApi from '@/api/services/BlogService';
+import { TypePage } from '@/constant/blog/blogEditer';
 export default {
     name: 'TechnologyPosts',
     components: {
@@ -36,37 +38,49 @@ export default {
     },
     data() {
         return {
-            dataPosts: [
-                {
-                    title: 'kiểm định chất lượng sản phẩm',
-                    content: 'Đầu tiên Đông trùng hạ thảo nên là sản phẩm hoang dã tự nhiên. Đông trùng hạ thảo Hymalya tốt vì được khai thác trên đỉnh núi cao với độ thanh khí tốt. Có 2 vị trí được coi là hàng tốt nhất về xuất xứ là: Nugu Tây Tạng & Thung lũng Dolpa của Nepal.',
-                    image: '@/assets/vstp-1.jpg'
-                },
-                {
-                    title: 'Nghiên cứu và phát triển sản phẩm',
-                    content: 'Đầu tiên Đông trùng hạ thảo nên là sản phẩm hoang dã tự nhiên. Đông trùng hạ thảo Hymalya tốt vì được khai thác trên đỉnh núi cao với độ thanh khí tốt. ',
-                    image: '@/assets/vstp-1.jpg'
-                },
-                {
-                    title: 'Công nghệ sản xuất',
-                    content: 'Đầu tiên Đông trùng hạ thảo nên là sản phẩm hoang dã tự nhiên. Đông trùng hạ thảo Hymalya tốt vì được khai thác trên đỉnh núi cao với độ thanh khí tốt. ',
-                    image: '@/assets/vstp-1.jpg'
-                },
-                {
-                    title: 'Chứng nhận',
-                    content: 'Đầu tiên Đông trùng hạ thảo nên là sản phẩm hoang dã tự nhiên. Đông trùng hạ thảo Hymalya tốt vì được khai thác trên đỉnh núi cao với độ thanh khí tốt. ',
-                    image: '@/assets/vstp-1.jpg'
-                },
-                {
-                    title: 'Tự công bố',
-                    content: 'Đầu tiên Đông trùng hạ thảo nên là sản phẩm hoang dã tự nhiên. Đông trùng hạ thảo Hymalya tốt vì được khai thác trên đỉnh núi cao với độ thanh khí tốt. ',
-                    image: '@/assets/vstp-1.jpg'
-                },
-            ]
+            dataPosts: []
         }
-    },
-    methods:{
 
+    },
+    created() {
+        this.getTechnologyPosts();
+    },
+    methods: {
+        async getTechnologyPosts() {
+
+            const filter = {
+                $and: [
+                    {
+                        page_type: {
+                            $in: [TypePage.TECHNOLOGY_RESEARCH]
+                        }
+                    }
+                ]
+            }
+
+            const data = {
+                page: 1,
+                limit: 10,
+                filter,
+                sort: { sell_quantity: 1 }
+            }
+            try {
+                this.dataPosts = [];
+                const res = await pageApi.getPageByFilter(data);
+                res.forEach(element => {
+                    this.dataPosts.push({
+                        id:element.id,
+                        title: element.title,
+                        content: element.short_desc,
+                        image: element.image
+                    });
+                });
+            } catch (error) {
+                console.log(error)
+            }
+
+
+        }
     }
 }
 </script>
@@ -140,9 +154,10 @@ export default {
     overflow: hidden;
     border-radius: 10px;
     cursor: pointer;
-    
+
 }
-.image-zoom img{
+
+.image-zoom img {
     flex-shrink: 0;
     min-width: 100%;
     min-height: 100%
@@ -156,19 +171,19 @@ export default {
 
 @media only screen and (max-width: 947px) {
 
-    .posts-left{
+    .posts-left {
         height: 165px;
     }
+
     .posts-right {
         width: 500px;
     }
-    .image-zoom{
+
+    .image-zoom {
         width: 500px;
     }
 }
 
 
-@media only screen and (max-width: 785px) {
-
-}
+@media only screen and (max-width: 785px) {}
 </style>

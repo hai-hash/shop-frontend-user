@@ -1,11 +1,11 @@
 <template>
     <div class="technology-item">
-        <div class="technology-content">
+        <div class="technology-content" @click="handleClickViewPageDetail()">
             <h1 class="title">{{dataPosts ? dataPosts.title  : ''}}</h1>
             <div class="content">{{dataPosts ? dataPosts.content : ''}} </div>
         </div>
         <div class="technology-image" v-viewer>
-            <img src="@/assets/vstp-1.jpg" />
+            <img :src="dataPosts ? dataPosts.image : ''" />
         </div>
     </div>
 </template>
@@ -16,6 +16,11 @@ export default {
     name: 'TechnologyItem',
     props:{
         dataPosts:Object
+    },
+    methods:{
+        handleClickViewPageDetail(){
+            this.$router.push(`/technology-page?id=${this.dataPosts.id}`)
+        }
     }
 }
 </script>
@@ -31,6 +36,7 @@ export default {
 .technology-content {
     padding: 10px;
     width: 50%;
+    cursor: pointer;
 }
 
 .technology-image img {

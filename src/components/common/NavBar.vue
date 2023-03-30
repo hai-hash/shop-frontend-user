@@ -140,9 +140,29 @@ export default {
                     children: []
                 },
                 {
-                    title: 'BLOG',
-                    path:"/blog",
-                    children: []
+                    title: 'Page Blog',
+                    children: [
+                    {
+                        title: 'Blog',
+                        path:"/blog"
+                    },
+                    {
+                        title: 'Ý kiến từ chuyên gia',
+                        path:"/expert-page"
+                    },
+                    {
+                        title: 'Chất lượng sản phẩm',
+                        path:"/quality-page"
+                    },
+                    {
+                        title: 'Cam kết sản phẩm',
+                        path:"/commit-page"
+                    },
+                    {
+                        title: 'Công nghệ nghiên cứu',
+                        path:"/technology-page"
+                    },
+                    ]
                 },
                 {
                     title: 'BLOG EDITOR',

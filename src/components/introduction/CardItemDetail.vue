@@ -1,9 +1,9 @@
 <template>
-    <div class="card-item">
-        <h1 class="title-card-item">{{ title }}</h1>
+    <div class="card-item"  @click="handleClickViewPageDetail()">
+        <h1 class="title-card-item">{{ item.title }}</h1>
         <div class="content-card-item">
             <p>
-                {{ content }}
+                {{ item.content }}
             </p>
         </div>
     </div>
@@ -13,8 +13,12 @@
 export default {
     name: 'CardItemDetail',
     props: {
-        title: String,
-        content: String
+        item:Object,
+    },
+    methods:{
+        handleClickViewPageDetail(){
+            this.$router.push(`/commit-page?id=${this.item.id}`)
+        },
     }
 }
 </script>
@@ -23,12 +27,15 @@ export default {
 .card-item {
     padding: 5px;
     width: 170px;
+    max-height: 400px;
     margin-left: 10px;
     border: 1px solid rgb(242, 160, 41);
     background-color: rgb(242, 160, 41);
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .title-card-item {

@@ -55,7 +55,7 @@ export default {
 }
 
 .image-item-product {
-    height: 70%;
+    height: 65%;
     max-width: 200px;
     margin: 0 auto;
     margin-top: 5px;

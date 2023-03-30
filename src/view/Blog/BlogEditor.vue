@@ -9,7 +9,7 @@
                     outlined
                     :items="pageTypes"
                     item-value="value"
-                    item-text="text"
+                    item-text="label"
                     v-model="blogData.page_type"
                 ></v-select>
                 <v-btn color="primary" dark :loading="isSelecting" @click="handleFileImport">
@@ -94,6 +94,7 @@ import * as types from '@/api/common/PageType';
 import {items} from '@/api/configs/CKEditorConfig';
 import UploadService from '@/api/services/UploadService';
 import BlogService from '@/api/services/BlogService';
+import {PAGE_TYPE_OPTION} from '@/constant/blog/blogEditer';
 
 export default {
     name: 'BlogEditor',
@@ -129,12 +130,7 @@ export default {
             showMessage: false,
             message: '',
             messageBg: '',
-            pageTypes: [
-                {
-                    value: types.BLOG,
-                    text: 'Blog'
-                }
-            ],
+            pageTypes: PAGE_TYPE_OPTION,
             editorConfig: {
                 placeholder: 'Nhập mô tả chi tiết',
                 extraPlugins: [MyCustomUploadAdapterPlugin],

@@ -1,8 +1,9 @@
 <template>
     <div class="thumb-example">
       <!-- swiper1 -->
-      <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
-        <swiper-slide :class="`slide-${index}`" v-for="(image,index) in listImage" :key="index" v-bind:style="{ 'background-image': 'url(' + image + ')' }">
+      <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop" v-viewer>
+        <swiper-slide :class="`slide-${index}`" v-for="(image,index) in listImage" :key="index" >
+          <img :src="image" alt class="image-slide-main"/>
         </swiper-slide>
         <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
         <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
@@ -62,8 +63,13 @@
   </script>
   
   <style lang="scss" scoped>
+  .image-slide-main{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
     .thumb-example {
-      height: 600px;
+      height: 800px;
       background-color: black;
     }
   
