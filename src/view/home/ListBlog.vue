@@ -6,30 +6,27 @@
         <div class="border-bottom-title"></div>
       </div>
       <div class="list-blog">
-        <div class="two-col">
+        <div v-if="listBlog[0]" class="two-col">
           <div class="content-horizontal">
             <div class="content">
-              <div class="text">
-                <p class="title">Tiêu đề bài viết</p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book
+              <div class="text" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
+                <p class="title">{{listBlog[0].title}}</p>
+                {{listBlog[0].short_desc}}
               </div>
               <div class="time-and-share">
                 <p class="time"> 20h | tin moi</p>
                 <img class="share" src="@/assets/share.png" />
               </div>
             </div>
-            <img class="half-content-image" src="@/assets/category-2.jpg" />
+            <img class="half-content-image" :src="listBlog[0].image" />
           </div>
         </div>
-        <div class="two-col">
+        <div v-if="listBlog[0]" class="two-col">
           <div class="content-horizontal">
-            <img src="@/assets/category-2.jpg" class="full-content-image">
+            <img :src="listBlog[0].image" class="full-content-image">
             <div class="no-content-blog">
-              <div class="blank-content">
-                <img class="youtube-icon" src="@/assets/youtube-icon.png" />
-                <p class="title">Tiêu đề bài viết</p>
+              <div class="blank-content" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
+                <p class="title">{{listBlog[0].title}}</p>
               </div>
               <div class="time-and-share">
                 <p class="time"> 20h | tin moi</p>
@@ -41,10 +38,10 @@
         <div class="two-col">
           <div class="four-col">
             <div class="content-horizontal">
-              <img src="@/assets/category-2.jpg" class="full-content-image">
+              <img :src="listBlog[0].image" class="full-content-image">
               <div class="no-content-blog">
-                <div class="blank-content">
-                  <p class="title">Tiêu đề bài viết</p>
+                <div class="blank-content" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
+                  <p class="title">{{listBlog[0].title}}</p>
                 </div>
                 <div class="time-and-share">
                   <p class="time"> 20h | tin moi</p>
@@ -55,11 +52,11 @@
           </div>
           <div class="four-col">
             <div class="content-vertical">
-              <img src="@/assets/category-2.jpg" class="full-content-image">
+              <img :src="listBlog[0].image" class="full-content-image">
               <div class="content">
-                <div class="text">
-                  <p class="title">Tiêu đề bài viết</p>
-                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                <div class="text" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
+                  <p class="title">{{listBlog[0].title}}</p>
+                  {{listBlog[0].short_desc}}
                 </div>
                 <div class="time-and-share">
                   <p class="time"> 20h | tin moi</p>
@@ -72,11 +69,11 @@
         <div class="two-col">
           <div class="four-col">
             <div class="content-vertical">
-              <img src="@/assets/category-2.jpg" class="full-content-image">
+              <img :src="listBlog[0].image" class="full-content-image">
               <div class="content">
-                <div class="text">
-                  <p class="title">Tiêu đề bài viết</p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <div class="text" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
+                  <p class="title">{{listBlog[0].title}}</p>
+                  {{listBlog[0].short_desc}}
                 </div>
                 <div class="time-and-share">
                   <p class="time"> 20h | tin moi</p>
@@ -90,7 +87,12 @@
               <img src="@/assets/category-2.jpg" class="full-content-image">
               <div class="no-content-blog">
                 <!-- <p class="plus-icon">+</p> -->
-                <img class="plus-icon" src="@/assets/plus_orange.png" />
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img class="plus-icon" src="@/assets/plus_orange.png" @click="handleShowMoreBlog()" v-bind="attrs" v-on="on"/>
+                  </template>
+                  <span>Xem thêm</span>
+                </v-tooltip>
               </div>
             </div>
           </div>
@@ -101,11 +103,32 @@
 </template>
 
 <script>
+import BlogService from '@/api/services/BlogService';
 export default {
   name: 'ListBlog',
+  mounted: function () {
+    this.getBlog()
+  },
   data() {
     return {
-      image: '/assets/category-2.jpg'
+      image: '/assets/category-2.jpg',
+      listBlog: null
+    }
+  },
+  methods: {
+    async getBlog() {
+      let params = {
+        page: 1,
+        limit: 1
+      }
+      let responeData = await BlogService.getAll(params);
+      this.listBlog = responeData;
+    },
+    handleSelectBlog(item) {
+      this.$router.push(`/blog?id=${item.id}&slug=${item.slug}`)
+    },
+    handleShowMoreBlog() {
+      this.$router.push(`/blog`)
     }
   }
 }
@@ -209,7 +232,6 @@ export default {
 .content-horizontal .title {
   font-weight: bold;
   font-size: 25px;
-  height: 30px;
   margin-bottom: 5px;
 }
 
@@ -317,7 +339,7 @@ export default {
   border-radius: 0px 0px 10px 10px;
   padding: 5px 10px 10px 10px;
   width: 100%;
-  height: 65%;
+  height: 70%;
   background-color: white;
   position: absolute;
   bottom: 0px;
@@ -327,14 +349,26 @@ export default {
 
   text-align: justify;
   margin-bottom: 0px;
-  height: 113px;
+  height: 118px;
+  overflow: hidden;
 }
 
 .content-vertical .title {
   font-weight: bold;
   font-size: 25px;
-  height: 30px;
   margin-bottom: 5px;
+}
+
+.text:hover {
+  cursor: pointer;
+}
+
+.blank-content:hover {
+  cursor: pointer;
+}
+
+.plus-icon:hover {
+  cursor: pointer;
 }
 
 @media (min-width: 960px) {
