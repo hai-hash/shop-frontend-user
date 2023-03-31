@@ -10,7 +10,7 @@
                     <div class="cart-ss1-left">
                         <div class="name">{{ item.title }}</div>
                         <div class="customize">{{ item.title }}</div>
-                        <div class="total">{{ item.price.list_price }} x {{ item.count }} = {{ item.price.list_price*item.count }}đ</div>
+                        <div class="total">{{ item.price.list_price.toLocaleString("vi-VN") }} x {{ item.count }} = {{ (item.price.list_price*item.count).toLocaleString("vi-VN") }}đ</div>
                     </div>
                     <div class="cart-ss1-right">
                         <div class="change-quantity decrease noselect" @click="reduceNumberItem(item)">-</div>
@@ -52,7 +52,7 @@ export default {
             this.listItemCard.forEach(item =>{
                 totalPrice += item.price.list_price*item.count;
             })
-            return totalPrice;
+            return totalPrice.toLocaleString("vi-VN");
         }
     },
     props: {

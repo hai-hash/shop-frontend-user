@@ -4,8 +4,8 @@
             <img :src="item.landing_page_image" alt />
         </v-card>
         <div class="content-item-product">
-            <p class="sale-price">{{item.price.sale_price}}đ</p>
-            <p class="primary-price">{{item.price.list_price}}đ</p>
+            <p class="sale-price">{{item.price.sale_price.toLocaleString("vi-VN")}}đ</p>
+            <p class="primary-price">{{item.price.list_price.toLocaleString("vi-VN")}}đ</p>
             <p class="description-product">{{ item.short_desc }}</p>
         </div>
 

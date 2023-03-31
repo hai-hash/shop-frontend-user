@@ -3,8 +3,8 @@
         <img :src="item.landing_page_image" alt>
         <div class="product-name" @click="handleClickViewDetail()">{{ item.title }}</div>
         <div class="product-price" @click="handleClickViewDetail()">
-            <p class="product-origin-price">{{item.price.list_price}}đ</p>
-            <p class="product-sale-price">{{item.price.sale_price}}đ</p>
+            <p class="product-origin-price">{{item.price.list_price.toLocaleString("vi-VN")}}đ</p>
+            <p class="product-sale-price">{{item.price.sale_price.toLocaleString("vi-VN")}}đ</p>
         </div>
         <div class="btn-increase noselect" @click="addItemToCard">+</div>
     </div>
