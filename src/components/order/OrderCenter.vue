@@ -1,7 +1,7 @@
 <template>
     <div class="order-center">
         <div class="main-center">
-           <ListProductByCategory/>
+           <ListProductByCategory @addItemToCard="addItemToCard"/>
         </div>
     </div>
 
@@ -12,6 +12,11 @@ export default {
     name:'OrderCenter',
     components:{
         ListProductByCategory
+    },
+    methods:{
+        addItemToCard(item){
+            this.$emit('addItemToCard',item);
+        },
     }
 }
 </script>

@@ -4,8 +4,8 @@
         <div class="page-order">
             <div class="order-content">
                 <OrderSidebar class="category-menu"/>
-                <OrderCenter/>
-                <ProductCart/>
+                <OrderCenter @addItemToCard="addItemToCard"/>
+                <ProductCart :cardItems="cardItems"/>
             </div>
         </div>
     </div>
@@ -23,6 +23,37 @@ export default {
         OrderSidebar,
         OrderCenter,
         ProductCart
+    },
+    created(){
+        let listItemCart = JSON.parse(localStorage.getItem('list-item-cart'));
+            if(!listItemCart){
+                listItemCart = [];
+            }
+            this.cardItems = listItemCart;
+    },
+    data(){
+        return {
+            cardItems:[],
+        }
+    },
+    methods:{
+        addItemToCard(item){
+            let listItemCart = JSON.parse(localStorage.getItem('list-item-cart'));
+            if(!listItemCart){
+                listItemCart = [];
+            }
+          const  indexItem = listItemCart.findIndex(itemFilter => itemFilter.id === item.id);
+          if(indexItem === -1){
+            listItemCart.push({...item,count:1});
+            this.cardItems = listItemCart;
+            localStorage.setItem('list-item-cart',JSON.stringify(listItemCart))
+            return;
+          }
+          listItemCart[indexItem].count += 1;
+          this.cardItems = listItemCart;
+          localStorage.setItem('list-item-cart',JSON.stringify(listItemCart))
+
+        },
     }
 }
 </script>

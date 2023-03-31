@@ -6,10 +6,10 @@
         <div class="border-bottom-title"></div>
       </div>
       <div class="list-blog">
-        <div v-if="listBlog[0]" class="two-col">
+        <div v-if="listBlog.length > 0 && listBlog[0]" class="two-col">
           <div class="content-horizontal">
             <div class="content">
-              <div class="text" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
+              <div class="text" @click="handleSelectBlog({id: listBlog[0].id, slug:listBlog[0].seo.slug})">
                 <p class="title">{{listBlog[0].title}}</p>
                 {{listBlog[0].short_desc}}
               </div>
@@ -21,12 +21,12 @@
             <img class="half-content-image" :src="listBlog[0].image" />
           </div>
         </div>
-        <div v-if="listBlog[0]" class="two-col">
+        <div v-if="listBlog.length > 1 && listBlog[1]" class="two-col">
           <div class="content-horizontal">
-            <img :src="listBlog[0].image" class="full-content-image">
+            <img :src="listBlog[1].image" class="full-content-image">
             <div class="no-content-blog">
-              <div class="blank-content" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
-                <p class="title">{{listBlog[0].title}}</p>
+              <div class="blank-content" @click="handleSelectBlog({id: listBlog[1].id, slug:listBlog[1].seo.slug})">
+                <p class="title">{{listBlog[1].title}}</p>
               </div>
               <div class="time-and-share">
                 <p class="time"> 20h | tin moi</p>
@@ -36,12 +36,12 @@
           </div>
         </div>
         <div class="two-col">
-          <div class="four-col">
+          <div class="four-col" v-if="listBlog.length > 2">
             <div class="content-horizontal">
-              <img :src="listBlog[0].image" class="full-content-image">
+              <img :src="listBlog[2].image" class="full-content-image">
               <div class="no-content-blog">
-                <div class="blank-content" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
-                  <p class="title">{{listBlog[0].title}}</p>
+                <div class="blank-content" @click="handleSelectBlog({id: listBlog[2].id, slug:listBlog[2].seo.slug})">
+                  <p class="title">{{listBlog[2].title}}</p>
                 </div>
                 <div class="time-and-share">
                   <p class="time"> 20h | tin moi</p>
@@ -50,13 +50,13 @@
               </div>
             </div>
           </div>
-          <div class="four-col">
+          <div class="four-col"  v-if="listBlog.length > 3">
             <div class="content-vertical">
-              <img :src="listBlog[0].image" class="full-content-image">
+              <img :src="listBlog[3].image" class="full-content-image">
               <div class="content">
-                <div class="text" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
-                  <p class="title">{{listBlog[0].title}}</p>
-                  {{listBlog[0].short_desc}}
+                <div class="text" @click="handleSelectBlog({id: listBlog[3].id, slug:listBlog[3].seo.slug})">
+                  <p class="title">{{listBlog[3].title}}</p>
+                  {{listBlog[3].short_desc}}
                 </div>
                 <div class="time-and-share">
                   <p class="time"> 20h | tin moi</p>
@@ -66,14 +66,14 @@
             </div>
           </div>
         </div>
-        <div class="two-col">
+        <div class="two-col"  v-if="listBlog.length > 4">
           <div class="four-col">
             <div class="content-vertical">
-              <img :src="listBlog[0].image" class="full-content-image">
+              <img :src="listBlog[4].image" class="full-content-image">
               <div class="content">
-                <div class="text" @click="handleSelectBlog({id: 0, slug:listBlog[0].seo.slug})">
-                  <p class="title">{{listBlog[0].title}}</p>
-                  {{listBlog[0].short_desc}}
+                <div class="text" @click="handleSelectBlog({id: listBlog[4].id, slug:listBlog[4].seo.slug})">
+                  <p class="title">{{listBlog[4].title}}</p>
+                  {{listBlog[4].short_desc}}
                 </div>
                 <div class="time-and-share">
                   <p class="time"> 20h | tin moi</p>
@@ -103,11 +103,12 @@
 </template>
 
 <script>
-import BlogService from '@/api/services/BlogService';
+import {TypePage} from '@/constant/blog/blogEditer';
+import pageApi from '@/api/services/BlogService';
 export default {
   name: 'ListBlog',
   mounted: function () {
-    this.getBlog()
+    this.getPosts()
   },
   data() {
     return {
@@ -116,13 +117,32 @@ export default {
     }
   },
   methods: {
-    async getBlog() {
-      let params = {
-        page: 1,
-        limit: 1
-      }
-      let responeData = await BlogService.getAll(params);
-      this.listBlog = responeData;
+    async getPosts(){
+           
+           const filter = {
+                $and: [
+                    {
+                        page_type: {
+                            $in: [TypePage.BLOG]
+                        }
+                    }
+                ]
+        }
+        const data = {
+            page: 1,
+            limit: 10,
+            filter,
+            sort: { sell_quantity: 1 }
+        }
+        try {
+            const res = await pageApi.getPageByFilter(data);
+            this.listBlog = res;
+           
+        } catch (error) {
+            console.log(error)
+        }
+       
+        
     },
     handleSelectBlog(item) {
       this.$router.push(`/blog?id=${item.id}&slug=${item.slug}`)

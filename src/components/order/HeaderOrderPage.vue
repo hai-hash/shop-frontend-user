@@ -1,7 +1,7 @@
 <template>
     <div class="order-header">
         <a class="logo" @click="goToHome">
-            <img src="https://tocotocotea.com/wp-content/themes/tocotocotea/assets/images/logo.png" alt/>
+            <img src="@/assets/logo-medicime.png" alt/>
         </a>
         <div class="search">
             <input class="input-search" type="text" placeholder="Tìm Kiếm Sản Phẩm..." value/>
@@ -39,7 +39,7 @@ export default {
 }
 
 .logo img {
-    width: 100%;
+   height: 100%;
 }
 
 .input-search {

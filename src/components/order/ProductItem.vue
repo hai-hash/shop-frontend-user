@@ -6,7 +6,7 @@
             <p class="product-origin-price">{{item.price.list_price}}đ</p>
             <p class="product-sale-price">{{item.price.sale_price}}đ</p>
         </div>
-        <div class="btn-increase">+</div>
+        <div class="btn-increase noselect" @click="addItemToCard">+</div>
     </div>
 
 </template>
@@ -17,6 +17,9 @@ export default {
         item:Object
     },
     methods:{
+        addItemToCard(){
+            this.$emit('addItemToCard',this.item);
+        },
         handleClickViewDetail(){
             this.$router.push(`/product-detail/${this.item.seo.slug}?id=${this.item.id}`)
         }
@@ -90,6 +93,9 @@ p {
     right: 15px;
     bottom: 15px;
     line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 </style>

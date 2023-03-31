@@ -5,7 +5,7 @@
             <div class="extend-icon">close</div>
         </div>
         <div class="list-product">
-            <ProductItem v-for="(item, index) in listProduct" :key="index" :item="item" />
+            <ProductItem v-for="(item, index) in listProduct" :key="index" :item="item" @addItemToCard="addItemToCard"/>
         </div>
 
     </div>
@@ -32,6 +32,9 @@ export default {
         this.getProduct();
     },
     methods: {
+        addItemToCard(item){
+            this.$emit('addItemToCard',item);
+        },
         async getProduct() {
             let filter = {};
             if(this.$route.query.category){
