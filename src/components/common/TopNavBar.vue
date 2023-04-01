@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="right-top-nav">
-                <div class="login">Đăng Nhập</div>
+                <div class="login" @click="handleLogin()">Đăng Nhập</div>
                 <div class="registry">Đăng ký</div>
             </div>
         </div>
@@ -50,6 +50,9 @@ export default {
         }
     },
     methods:{
+        handleLogin(){
+            this.$router.push('/login');
+        },
         selectLangule(){
             console.log('da nhay vao day')
             this.isOpenListLangule = !this.isOpenListLangule;
