@@ -24,6 +24,7 @@
 <script>
 import pageApi from '@/api/services/BlogService';
 import { TypePage } from '@/constant/blog/blogEditer';
+import { TypePageName } from '@/constant/blog/blogEditer';
 export default {
   name: 'QuantityProductPosts',
   data() {
@@ -36,7 +37,7 @@ export default {
   },
   methods: {
     handleClickViewPageDetail(){
-            this.$router.push(`/expert-page?id=${this.contentCardData.id}`)
+            this.$router.push(`/page/${TypePageName.EXPERT_OPINION}?id=${this.contentCardData.id}`)
         },
     async getPosts() {
 
@@ -44,7 +45,7 @@ export default {
         $and: [
           {
             page_type: {
-              $in: [TypePage.EXPERT_OPINION]
+              $in: [TypePage.expect_opinion]
             }
           }
         ]

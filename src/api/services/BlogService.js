@@ -16,6 +16,10 @@ const BlogService = {
     getPagesByParam:(params) =>{
         const url = '/page'
         return axiosClient.get(url,{params});
+    },
+    deletePageById:(params) =>{
+        const url = '/page'
+        return axiosClient.delete(url,{params});
     }
 }
 

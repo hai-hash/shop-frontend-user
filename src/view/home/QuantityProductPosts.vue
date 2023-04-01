@@ -24,6 +24,7 @@
 <script>
 import {TypePage} from '@/constant/blog/blogEditer';
 import pageApi from '@/api/services/BlogService';
+import { TypePageName } from '@/constant/blog/blogEditer';
 export default {
   name: 'QuantityProductPosts',
   data(){
@@ -36,7 +37,7 @@ export default {
   },
   methods:{
     handleClickViewPageDetail(){
-            this.$router.push(`/quality-page?id=${this.listPageData.id}`)
+            this.$router.push(`/page/${TypePageName.QUALITY}?id=${this.listPageData.id}`)
         },
     async getPosts(){
            
@@ -44,7 +45,7 @@ export default {
                 $and: [
                     {
                         page_type: {
-                            $in: [TypePage.QUANLITY]
+                            $in: [TypePage.quality]
                         }
                     }
                 ]

@@ -2,46 +2,47 @@
     <div>
         <div id="blog">
             <v-form>
-                <h2 style="margin-top: 20px;">Nội dung</h2>
-                <v-text-field clearable label="Tiêu đề bài viết" variant="outlined" v-model="blogData.title"></v-text-field>
-                <v-select
-                    label="Chọn loại trang"
-                    outlined
-                    :items="pageTypes"
-                    item-value="value"
-                    item-text="label"
-                    v-model="blogData.page_type"
-                ></v-select>
-                <v-btn color="primary" dark :loading="isSelecting" @click="handleFileImport">
-                    Chọn ảnh đại diện
-                </v-btn>
-                <input ref="uploader" class="d-none" type="file" @change="onFileChanged" accept="image/*" />
-                <div id="preview">
-                    <img v-if="selectedImage" v-bind:src="imageURL" id="preview-img"/>
-                </div>
-                <v-textarea
-                    outlined
-                    label="Mô tả ngắn"
-                    placeholder="Mô tả ngắn"
-                    v-model="blogData.short_desc"
-                ></v-textarea>
-                <div id="blog-content">
-                    <ckeditor :editor="editor" v-model="blogData.long_desc" :config="editorConfig" @ready="onReady"></ckeditor>
-                </div>
+                <v-expansion-panels  v-model=" panelContent" multiple>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header>Thông tin tổng quan bài viết</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <v-text-field clearable label="Tiêu đề bài viết" variant="outlined" v-model="blogData.title"
+                                outlined></v-text-field>
+                            <v-select label="Page type" outlined :items="pageTypes" item-value="value" item-text="label"
+                                v-model="blogData.page_type"></v-select>
+                            <v-textarea outlined label="Mô tả ngắn" placeholder="Mô tả ngắn"
+                                v-model="blogData.short_desc"></v-textarea>
+                            <UploadImage title="Upload Image" v-model="blogData.image" />
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
 
-                <h2 style="margin-top: 20px;">SEO Website</h2>
+                <v-expansion-panels accordion v-model="panelMedia" multiple>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header>SEO Website</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <v-text-field clearable label="Meta title" variant="outlined" v-model="blogData.seo.meta_title"
+                                outlined></v-text-field>
+                            <v-text-field clearable label="Từ khóa" variant="outlined" v-model="blogData.seo.meta_keywords"
+                                outlined></v-text-field>
+                            <v-textarea outlined label="Meta description" placeholder="Meta description"
+                                v-model="blogData.seo.meta_description"></v-textarea>
+                            <v-text-field clearable label="Slug" variant="outlined" v-model="blogData.seo.slug"
+                                outlined></v-text-field>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
 
-                <v-text-field clearable label="Meta title" variant="outlined" v-model="blogData.seo.meta_title"></v-text-field>
-                <v-text-field clearable label="Từ khóa" variant="outlined" v-model="blogData.seo.meta_keywords"></v-text-field>
-                <v-textarea
-                    outlined
-                    label="Meta description"
-                    placeholder="Meta description"
-                    v-model="blogData.seo.meta_description"
-                ></v-textarea>
-                <v-text-field clearable label="Slug" variant="outlined" v-model="blogData.seo.slug"></v-text-field>
+                <v-expansion-panels accordion v-model="panelEditor" multiple>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header>Nội dung bài viết</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <Editor v-model="blogData.long_desc"></Editor>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
 
-                <v-card-actions>
+                    <v-card-actions>
                     <v-btn size="x-large" color="success" @click="handleCreateBlog" :disabled="isDisableCreateBtn">
                         Thêm mới
                         <v-icon end icon="mdi-vuetify"></v-icon>
@@ -53,6 +54,7 @@
                     </v-col>
                 </v-card-actions>
             </v-form>
+
             <v-dialog v-model="dialog" width="800">
                 <v-card>
                     <v-card-title class="text-h5">
@@ -69,40 +71,36 @@
                 </v-card>
             </v-dialog>
             <v-snackbar v-model="showMessage" left :color="messageBg" variant="tonal">
-                    {{ message }}
-            
-                    <template v-slot:actions>
-                    <v-btn
-                        color="black"
-                        variant="text"
-                        @click="showMessage = false"
-                    >
+                {{ message }}
+
+                <template v-slot:actions>
+                    <v-btn color="black" variant="text" @click="showMessage = false">
                         Close
                     </v-btn>
-                    </template>
-          </v-snackbar>
+                </template>
+            </v-snackbar>
         </div>
         <FooterPage />
     </div>
 </template>
 
 <script>
-import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import FooterPage from '@/view/home/FooterPage.vue';
-import MyCustomUploadAdapterPlugin from '@/api/CustomUploaderPlugin';
 import * as types from '@/api/common/PageType';
-import {items} from '@/api/configs/CKEditorConfig';
-import UploadService from '@/api/services/UploadService';
 import BlogService from '@/api/services/BlogService';
-import {PAGE_TYPE_OPTION} from '@/constant/blog/blogEditer';
+import { PAGE_TYPE_OPTION } from '@/constant/blog/blogEditer';
+import Editor from '@/components/common/Editor.vue';
+import UploadImage from '@/components/common/UploadImage.vue';
 
 export default {
     name: 'BlogEditor',
     components: {
-        FooterPage
+        FooterPage,
+        Editor,
+        UploadImage
     },
     computed: {
-        isDisableCreateBtn () {
+        isDisableCreateBtn() {
             return this.isCreateDisable;
         }
     },
@@ -123,27 +121,17 @@ export default {
             },
             dialog: false,
             isSelecting: false,
-            imageURL: null,
-            selectedImage: false,
             isCreateDisable: false,
-            editor: DecoupledEditor,
             showMessage: false,
             message: '',
             messageBg: '',
             pageTypes: PAGE_TYPE_OPTION,
-            editorConfig: {
-                placeholder: 'Nhập mô tả chi tiết',
-                extraPlugins: [MyCustomUploadAdapterPlugin],
-                toolbar: {
-                    items: items
-                }
-            }
+            panelContent: [0],
+            panelMedia: [0],
+            panelEditor: [0],
         }
     },
     methods: {
-        onReady(editor) {
-            document.getElementById('blog-content').prepend(editor.ui.view.toolbar.element);
-        },
         async handleCreateBlog() {
             try {
                 const res = await BlogService.create(this.blogData);
@@ -158,25 +146,6 @@ export default {
                 this.showMessage = true;
             }
         },
-        handleFileImport() {
-            this.isSelecting = true;
-            window.addEventListener('focus', () => {
-                this.isSelecting = false
-            }, { once: true });
-            this.$refs.uploader.click();
-        },
-        async onFileChanged(e) {
-            this.isCreateDisable = true;
-
-            //preview image
-            this.imageURL = URL.createObjectURL(e.target.files[0])
-            this.selectedImage = true
-
-            //upload image
-            let uploadURL = await UploadService.uploadImage(e.target.files[0]);
-            this.blogData.image = uploadURL;
-            this.isCreateDisable = false;
-        },
     }
 }
 
@@ -186,6 +155,7 @@ export default {
 #blog {
     width: 70%;
     margin: 0px auto;
+    margin-top: 30px;
 }
 
 #preview {

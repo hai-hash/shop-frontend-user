@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { TypePageName } from '@/constant/blog/blogEditer';
 export default {
     name: 'CardItemDetail',
     props: {
@@ -17,7 +18,7 @@ export default {
     },
     methods:{
         handleClickViewPageDetail(){
-            this.$router.push(`/commit-page?id=${this.item.id}`)
+            this.$router.push(`/page/${TypePageName.COMMIT}?id=${this.item.id}`)
         },
     }
 }

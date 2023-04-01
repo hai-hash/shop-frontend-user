@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-        <div class="two-col">
+        <div class="two-col" v-if="listBlog.length > 2">
           <div class="four-col" v-if="listBlog.length > 2">
             <div class="content-horizontal">
               <img :src="listBlog[2].image" class="full-content-image">
@@ -105,6 +105,7 @@
 <script>
 import {TypePage} from '@/constant/blog/blogEditer';
 import pageApi from '@/api/services/BlogService';
+import { TypePageName } from '@/constant/blog/blogEditer';
 export default {
   name: 'ListBlog',
   mounted: function () {
@@ -113,7 +114,7 @@ export default {
   data() {
     return {
       image: '/assets/category-2.jpg',
-      listBlog: null
+      listBlog: []
     }
   },
   methods: {
@@ -123,7 +124,7 @@ export default {
                 $and: [
                     {
                         page_type: {
-                            $in: [TypePage.BLOG]
+                            $in: [TypePage.blog]
                         }
                     }
                 ]
@@ -145,7 +146,7 @@ export default {
         
     },
     handleSelectBlog(item) {
-      this.$router.push(`/blog?id=${item.id}&slug=${item.slug}`)
+      this.$router.push(`/page/${TypePageName.BLOG}?id=${item.id}&slug=${item.slug}`)
     },
     handleShowMoreBlog() {
       this.$router.push(`/blog`)

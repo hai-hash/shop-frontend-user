@@ -22,9 +22,17 @@ export const PAGE_TYPE_OPTION = [
 ]
 
 export const TypePage = {
-    BLOG:1,
-    TECHNOLOGY_RESEARCH:2,
-    QUANLITY:3,
-    COMMIT:4,
-    EXPERT_OPINION:5
+    blog:1,
+    technology:2,
+    quality:3,
+    commit:4,
+    expect_opinion:5
+}
+
+export const TypePageName = {
+    BLOG:'blog',
+    TECHNOLOGY_RESEARCH:'technology',
+    QUALITY:'quality',
+    COMMIT:'commit',
+    EXPERT_OPINION:'expect_opinion'
 }

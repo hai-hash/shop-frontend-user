@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+import { TypePageName } from '@/constant/blog/blogEditer';
 export default {
     name: 'TechnologyItem',
     props:{
@@ -19,7 +19,7 @@ export default {
     },
     methods:{
         handleClickViewPageDetail(){
-            this.$router.push(`/technology-page?id=${this.dataPosts.id}`)
+            this.$router.push(`/page/${TypePageName.TECHNOLOGY_RESEARCH}?id=${this.dataPosts.id}`)
         }
     }
 }

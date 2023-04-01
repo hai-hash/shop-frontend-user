@@ -64,6 +64,7 @@
 </template>
 <script>
 import NavBarItemCommon from './NavBarItemCommon.vue';
+import {TypePageName} from '@/constant/blog/blogEditer';
 export default {
     name: 'NavBar',
     components: {
@@ -105,7 +106,7 @@ export default {
                     children: [
                         {
                             title: 'Tin mới nhất',
-                            path: "/new"
+                            path: `/page/${TypePageName.BLOG}`
                         },
                         {
                             title: 'Tin tức khuyến mại',
@@ -113,19 +114,19 @@ export default {
                         },
                         {
                             title: 'Tin HINA',
-                            path: "/hina_new"
+                            path: `/page/${TypePageName.COMMIT}`
                         },
                         {
                             title: 'HINA với cộng đồng',
-                            path: "/comunicate_new"
+                            path: `/page/${TypePageName.TECHNOLOGY_RESEARCH}`
                         },
                         {
                             title: 'Cẩm nang sức khỏe',
-                            path: "/hell"
+                            path: `/page/${TypePageName.QUALITY}`
                         },
                         {
                             title: 'Hỏi đáp từ chuyên gia',
-                            path: "/ref"
+                            path: `/page/${TypePageName.EXPERT_OPINION}`
                         }
                     ]
                 }
@@ -140,31 +141,6 @@ export default {
                     title: 'LIÊN HỆ',
                     path: "/contact",
                     children: []
-                },
-                {
-                    title: 'Page Blog',
-                    children: [
-                        {
-                            title: 'Blog',
-                            path: "/blog"
-                        },
-                        {
-                            title: 'Ý kiến từ chuyên gia',
-                            path: "/expert-page"
-                        },
-                        {
-                            title: 'Chất lượng sản phẩm',
-                            path: "/quality-page"
-                        },
-                        {
-                            title: 'Cam kết sản phẩm',
-                            path: "/commit-page"
-                        },
-                        {
-                            title: 'Công nghệ nghiên cứu',
-                            path: "/technology-page"
-                        },
-                    ]
                 },
                 {
                     title: 'BLOG EDITOR',

@@ -27,7 +27,7 @@ export default {
                 $and: [
                     {
                         page_type: {
-                            $in: [TypePage.COMMIT]
+                            $in: [TypePage.commit]
                         }
                     }
                 ]

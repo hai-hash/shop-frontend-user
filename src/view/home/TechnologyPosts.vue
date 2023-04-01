@@ -52,7 +52,7 @@ export default {
                 $and: [
                     {
                         page_type: {
-                            $in: [TypePage.TECHNOLOGY_RESEARCH]
+                            $in: [TypePage.technology]
                         }
                     }
                 ]

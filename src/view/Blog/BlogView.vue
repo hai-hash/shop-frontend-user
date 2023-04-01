@@ -1,29 +1,41 @@
 <template>
   <div>
     <div id="blog-view">
+
+      <v-row justify="center">
+        <v-col cols="11">
+          <div class="view-list-item" @click="handleViewMore">
+            <svg-icon type="mdi" :path="path" class="icon-view-more"></svg-icon>
+            <span class="title-view-more">Danh sách bài viết</span>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-navigation-drawer v-model="drawer" absolute temporary>
+        <v-list nav dense>
+          <h3 id="title">DANH MỤC TIN TỨC</h3>
+          <v-list-item-group active-class="deep-purple--text text--accent-4">
+            <v-list-item v-for="(item, index) in listBlog" :key="index"
+              :class="item.id !== selectBlog.id ? '' : 'deep-purple--text text--accent-4 v-list-item--active'">
+              <v-list-item-title  @click="handleSelectBlog(item)">{{ item.title }}</v-list-item-title>
+              <v-list-item-icon @click="handleDeletePage(item.id)">
+                <v-icon>mdi-delete</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+
       <v-container>
-        <v-sheet class="d-flex flex-wrap">
-          <v-sheet class="pa-2 ma-2" id="side-bar">
-            <v-row>
-              <v-col id="title">
-                DANH MỤC TIN TỨC
-              </v-col>
-            </v-row>
-            <v-row v-for="(item, index) in listBlog" :key="index" @click="handleSelectBlog(item)">
-              <v-col :class="item.id !== selectBlog.id ? 'sub-title' : 'sub-title-selected'">
-                {{ item.title }}
-              </v-col>
-            </v-row>
-          </v-sheet>
-          <v-sheet class="pa-2 ma-2" id="content">
-            <v-col>
-              <h1 id="blog-title">{{ selectBlog.title }}</h1>
-            </v-col>
+        <v-card>
+          <v-card-title>
+            <h3 id="blog-title">{{ selectBlog.title }}</h3>
+          </v-card-title>
+          <v-card-text class="pa-2 ma-2" id="content">
             <v-col v-html="selectBlog.long_desc">
             </v-col>
-          </v-sheet>
-        </v-sheet>
-
+          </v-card-text>
+        </v-card>
       </v-container>
     </div>
     <FooterPage />
@@ -34,32 +46,64 @@
 import FooterPage from '@/view/home/FooterPage.vue';
 import pageApi from '@/api/services/BlogService';
 import { TypePage } from '@/constant/blog/blogEditer';
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiViewList } from '@mdi/js';
 export default {
   name: 'BlogView',
   components: {
-    FooterPage
+    FooterPage,
+    SvgIcon
   },
   created() {
-    this.getBlogPosts()
+    const idBlog = this.$route.query.id;
+    this.pageType = this.$route.params.page_type;
+    if (idBlog) {
+      this.getPageById(idBlog);
+    }
   },
 
   watch: {
-    '$route.query'() {
+    '$route'() {
       const idBlog = this.$route.query.id;
-      if(idBlog){
-        this.getBlogById(idBlog);
+      this.pageType = this.$route.params.page_type;
+      if (idBlog) {
+        this.getPageById(idBlog);
       }
-        }
+    },
+    pageType: {
+      immediate: false,
+      handler() {
+        this.getPagesByPageType()
+      }
+    }
   },
   data() {
     return {
       listBlog: [],
-      selectBlog:{},
+      selectBlog: {},
       selectedBlogId: 0,
+      drawer: false,
+      path: mdiViewList,
+      pageType: '',
     }
   },
   methods: {
-    async getBlogById(id){
+    handleViewMore() {
+      this.drawer = true;
+    },
+    async handleDeletePage(id){
+      const params = {
+        id
+      }
+      try {
+        await pageApi.deletePageById(params);
+        const newListPage = this.listBlog.filter(item => item.id !== id);
+        this.listBlog = newListPage;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getPageById(id) {
       const params = {
         id,
       }
@@ -69,16 +113,15 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    
-      
     },
-    async getBlogPosts() {
+    async getPagesByPageType() {
       const idBlog = this.$route.query.id;
+      const pageTypeName = this.$route.params.page_type;
       const filter = {
         $and: [
           {
             page_type: {
-              $in: [TypePage.BLOG]
+              $in: [TypePage[pageTypeName]]
             }
           }
         ]
@@ -92,13 +135,7 @@ export default {
       try {
         const res = await pageApi.getPageByFilter(data);
         this.listBlog = res;
-        if(idBlog){
-          this.selectBlog = this.listBlog.find(item => item.id === idBlog);
-          if(!this.selectBlog){
-            this.selectBlog = res.length > 0 ? res[0] : {};
-          }
-        }
-        else{
+        if (!idBlog) {
           this.selectBlog = res.length > 0 ? res[0] : {};
         }
       } catch (error) {
@@ -106,7 +143,7 @@ export default {
       }
     },
     handleSelectBlog(item) {
-      this.$router.push( `/blog?id=${item.id}`);
+      this.$router.push(`/page/${this.pageType}?id=${item.id}`);
     }
   }
 }
@@ -130,16 +167,16 @@ export default {
 #content {
   height: auto;
   text-align: justify;
-  width: 60%;
+  width: 100%;
   max-width: 100%;
   min-width: 350px;
 }
 
 #title {
-  font-size: 28px;
   letter-spacing: 1.4px;
   color: #d3b673;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .sub-title {
@@ -178,6 +215,25 @@ export default {
 #blog-title {
   text-align: center;
   text-transform: uppercase;
+  width: 100%;
+}
+
+.view-list-item {
+  cursor: pointer;
+  display: flex;
+}
+
+.title-view-more {
+  color: rgb(212, 102, 5);
+  margin-left: 5px;
+}
+
+.icon-view-more {
+  color: rgb(212, 102, 5);
+}
+
+.title-view-more:hover {
+  color: rgb(192, 131, 77);
 }
 
 .sub-title:hover {
