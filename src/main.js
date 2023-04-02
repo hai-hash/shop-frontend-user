@@ -10,6 +10,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue2';
 import 'viewerjs/dist/viewer.css'
 import VueViewer from 'v-viewer'
 import VueSocialSharing from 'vue-social-sharing'
+import store from './store'
 Vue.use(VueViewer)
 Vue.use(VueSocialSharing)
 Vue.use(VueFbCustomerChat, {
@@ -22,7 +23,9 @@ Vue.use( CKEditor );
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   vuetify,
+  
   render: h => h(App),
 }).$mount('#app')

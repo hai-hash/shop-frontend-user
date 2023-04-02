@@ -30,7 +30,7 @@
                 <span class="cart-ss2-four">{{getTotalPriceOfCart}}đ</span>
             </div>
             <div class="cart-ss3">
-                <div class="button-cart">Thanh toán</div>
+                <div class="button-cart" @click="goToPaymentPage()">Thanh toán</div>
             </div>
         </div>
     </div>
@@ -59,6 +59,9 @@ export default {
         cardItems: Array
     },
     methods: {
+        goToPaymentPage(){
+            this.$router.push('/checkout');
+        },
         removeCart(){
             this.listItemCard = [];
             localStorage.removeItem('list-item-cart');

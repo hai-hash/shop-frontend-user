@@ -27,9 +27,9 @@
     "vue-icon": "^2.3.0",
     "vue-router": "^3.6.5",
     "vue-social-sharing": "^3.0.9",
-    "vue2-editor": "^2.10.3",
     "vueperslides": "^2.16.0",
-    "vuetify": "^2.6.14"
+    "vuetify": "^2.6.14",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

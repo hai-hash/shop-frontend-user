@@ -9,6 +9,7 @@ import BlogEditor from '@/view/Blog/BlogEditor.vue'
 import BlogView from '@/view/Blog/BlogView.vue'
 import DetailProduct from '@/components/product/DetailProduct.vue'
 import LoginForm from '@/view/login/LoginForm.vue'
+import PaymentCheckout from '@/components/order/PaymentCheckout.vue'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
           path: '/product',
           name: 'OrderPage',
           component: OrderPage
+        },
+        {
+          path: '/checkout',
+          name: 'PaymentCheckout',
+          component: PaymentCheckout
         },
         {
           path: '/login',
