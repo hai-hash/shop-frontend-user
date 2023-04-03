@@ -2,15 +2,19 @@
     <div class="login-wrap">
         <div class="wrapper">
         <div class="login">
-            <p class="title">Log in</p>
-            <input type="text" placeholder="Username" autofocus v-model="userName"/>
+            <p class="title">Registry</p>
+            <input type="text" placeholder="Name" autofocus v-model="data.name"/>
             <i class="fa fa-user"></i>
-            <input type="password" placeholder="Password" v-model="passWord"/>
+            <input type="text" placeholder="Email" autofocus v-model="data.email"/>
+            <i class="fa fa-user"></i>
+            <input type="password" placeholder="Password" v-model="data.passWord"/>
             <i class="fa fa-key"></i>
-            <a href="#">Forgot your password?</a>
+            <input type="password" placeholder="Password Confirm" v-model="data.passWordConfirm"/>
+            <i class="fa fa-key"></i>
+            <a href="#">Login</a>
             <button>
                 <i class="spinner"></i>
-                <span class="state" @click="handleLogin()">Log in</span>
+                <span class="state" @click="handleRegistry()">Registry</span>
             </button>
         </div>
         <footer>@Tashapy</footer>
@@ -19,29 +23,48 @@
     
 </template>
 <script>
-import loginApi from '@/api/method/login/loginApi'
+import authenApi from '@/api/method/login/loginApi'
 export default {
     name: 'LoginForm',
     data(){
         return{
-            userName:'',
-            passWord: ''
+            data:{
+                name:'',
+                email:'',
+                passWord: '',
+                passWordConfirm:''
+            }
         }
     },
     methods:{
-      async  handleLogin(){
-        const data = {
-            email:this.userName,
-            password:this.passWord
-        }
+    showSuccessSnackbar(message) {
+      const options = {
+        color: 'success',
+        timeout: 5000,
+        top: false,
+        bottom: true,
+        left: false,
+        right: true,
+        multiLine: true,
+        vertical: true,
+        queue: false,
+        closeOnContentClick: true,
+        closeOnClick: true,
+      };
+
+      this.$store.dispatch('showSnackbar', { message, options });
+    },
+      async  handleRegistry(){
         try {
-            const dataResponse = await loginApi.login(data);
-            console.log(dataResponse);
-            localStorage.setItem('token',dataResponse.accessToken);
-            this.$router.push('/home');
+            await authenApi.registry(this.data);
+            this.$router.push("/login");
+            this.showSuccessSnackbar('Kiểm tra email và xác nhận để kích hoạt tài khoản')
         } catch (error) {
+            this.showSuccessSnackbar('Đăng ký thất bại')
             console.log(error);
         }
+           
+        
            
         }
     }

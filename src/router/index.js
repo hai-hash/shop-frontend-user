@@ -10,6 +10,7 @@ import BlogView from '@/view/Blog/BlogView.vue'
 import DetailProduct from '@/components/product/DetailProduct.vue'
 import LoginForm from '@/view/login/LoginForm.vue'
 import PaymentCheckout from '@/components/order/PaymentCheckout.vue'
+import RegistryForm from '@/view/login/RegistryForm.vue'
 
 Vue.use(Router)
 
@@ -61,7 +62,12 @@ export default new Router({
           path: '/login',
           name: 'LoginForm',
           component: LoginForm
-        }
+        },
+        {
+          path: '/registry',
+          name: 'RegistryForm',
+          component: RegistryForm
+        },
       ]
     },
   ]

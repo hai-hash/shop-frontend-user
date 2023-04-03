@@ -18,7 +18,7 @@
             <v-list-item v-for="(item, index) in listBlog" :key="index"
               :class="item.id !== selectBlog.id ? '' : 'deep-purple--text text--accent-4 v-list-item--active'">
               <v-list-item-title  @click="handleSelectBlog(item)">{{ item.title }}</v-list-item-title>
-              <v-list-item-icon @click="handleDeletePage(item.id)">
+              <v-list-item-icon @click="handleClickButtonDelete(item.id)">
                 <v-icon>mdi-delete</v-icon>
               </v-list-item-icon>
             </v-list-item>
@@ -91,6 +91,13 @@ export default {
     handleViewMore() {
       this.drawer = true;
     },
+    handleClickButtonDelete(id){
+      this.$store.dispatch('callDialogConfirm',{
+        message:'Bạn có chắc chắn xóa bài viết này không ?',
+        callBackFunction:this.handleDeletePage,
+        dataCallBack: id
+      });
+    },
     async handleDeletePage(id){
       const params = {
         id
@@ -134,7 +141,7 @@ export default {
       }
       try {
         const res = await pageApi.getPageByFilter(data);
-        this.listBlog = res;
+        this.listBlog = res.filter(item =>item.is_deleted === false);
         if (!idBlog) {
           this.selectBlog = res.length > 0 ? res[0] : {};
         }
