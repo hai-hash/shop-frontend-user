@@ -60,7 +60,13 @@ export default {
     },
     methods: {
         goToPaymentPage(){
-            this.$router.push('/checkout');
+            const token = localStorage.getItem('token');
+            if(!token){
+                this.$router.push('/login');
+            }
+            else{
+                this.$router.push('/checkout');
+            }
         },
         removeCart(){
             this.listItemCard = [];

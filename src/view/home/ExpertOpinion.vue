@@ -22,9 +22,10 @@
 </template>
   
 <script>
-import pageApi from '@/api/services/BlogService';
 import { TypePage } from '@/constant/blog/blogEditer';
 import { TypePageName } from '@/constant/blog/blogEditer';
+import {PAGE_API} from '@/constant/common/UrlApi';
+import axios from 'axios';
 export default {
   name: 'QuantityProductPosts',
   data() {
@@ -59,7 +60,7 @@ export default {
       }
       try {
         this.contentCardData = [];
-        const res = await pageApi.getPageByFilter(data);
+        const res = await axios.post(PAGE_API,data);
         res.every(element => {
           this.contentCardData = element;
           return false

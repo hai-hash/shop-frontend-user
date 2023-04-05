@@ -12,7 +12,8 @@
 </template>
 <script>
 import ProductItem from '@/components/order/ProductItem.vue'
-import productApi from '@/api/method/product/productApi';
+import { PRODUCT_API } from '@/constant/common/UrlApi';
+import axios from 'axios';
 export default {
     name: 'ListProductByCategory',
     components: {
@@ -56,7 +57,7 @@ export default {
                 sort: { sell_quantity: 1 }
             }
             try {
-                const res = await productApi.getProductByFilter(data);
+                const res = await axios.post(PRODUCT_API,data)
                 this.listProduct = res;
             } catch (error) {
                 console.log(error)

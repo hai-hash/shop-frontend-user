@@ -8,9 +8,9 @@
             <input type="password" placeholder="Password" v-model="passWord"/>
             <i class="fa fa-key"></i>
             <a href="#">Forgot your password?</a>
-            <button>
+            <button @click="handleLogin()">
                 <i class="spinner"></i>
-                <span class="state" @click="handleLogin()">Log in</span>
+                <span class="state">Log in</span>
             </button>
         </div>
         <footer>@Tashapy</footer>
@@ -29,6 +29,23 @@ export default {
         }
     },
     methods:{
+        showSuccessSnackbar(message) {
+      const options = {
+        color: 'success',
+        timeout: 5000,
+        top: false,
+        bottom: true,
+        left: false,
+        right: true,
+        multiLine: true,
+        vertical: true,
+        queue: false,
+        closeOnContentClick: true,
+        closeOnClick: true,
+      };
+
+      this.$store.dispatch('showSnackbar', { message, options });
+    },
       async  handleLogin(){
         const data = {
             email:this.userName,
@@ -36,11 +53,12 @@ export default {
         }
         try {
             const dataResponse = await loginApi.login(data);
-            console.log(dataResponse);
             localStorage.setItem('token',dataResponse.accessToken);
-            this.$router.push('/home');
+            localStorage.setItem('refesh_token',dataResponse.refreshToken);
+            this.$router.go(-1);
         } catch (error) {
             console.log(error);
+            this.showSuccessSnackbar('Đăng nhập thất bại')
         }
            
         }

@@ -25,7 +25,8 @@ import ProductCategory from '@/view/home/ProductCategory.vue'
 import ListBlog from './ListBlog.vue';
 import FooterPage from '@/view/home/FooterPage.vue';
 import ListProductGird from '@/components/product/ListProductGird.vue';
-import productApi from '@/api/method/product/productApi';
+import axios from 'axios';
+import {CATEGORY_API,PRODUCT_API} from '@/constant/common/UrlApi';
 export default {
   name: 'App',
   components: {
@@ -58,7 +59,7 @@ export default {
         limit: 100,
       }
       try {
-        const data = await productApi.getProduct(params);
+        const data = await axios.get(PRODUCT_API,{params});
         this.listProductHot = data;
         this.listProductNew = data;
       } catch (error) {
@@ -72,8 +73,8 @@ export default {
         filter:{}
       }
       try {
-        const res = await productApi.getCategories(data);
-        this.listCategory = res;
+        const response = await axios.post(CATEGORY_API,data);
+        this.listCategory = response;
       } catch (error) {
         console.log(error)
       } 

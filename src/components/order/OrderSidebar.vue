@@ -11,7 +11,8 @@
 
 </template>
 <script>
-import productApi from '@/api/method/product/productApi';
+import axios from 'axios';
+import { CATEGORY_API } from '@/constant/common/UrlApi';
 export default {
     name: 'OrderSidebar',
     data(){
@@ -30,7 +31,7 @@ export default {
         filter:{}
       }
       try {
-        const res = await productApi.getCategories(data);
+        const res = await axios.post(CATEGORY_API,data);
         this.listCategory = res;
       } catch (error) {
         console.log(error)

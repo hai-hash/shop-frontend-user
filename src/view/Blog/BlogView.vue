@@ -44,10 +44,11 @@
 
 <script>
 import FooterPage from '@/view/home/FooterPage.vue';
-import pageApi from '@/api/services/BlogService';
 import { TypePage } from '@/constant/blog/blogEditer';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiViewList } from '@mdi/js';
+import axios from 'axios';
+import { PAGE_DETAIL_API,PAGE_API } from '@/constant/common/UrlApi';
 export default {
   name: 'BlogView',
   components: {
@@ -103,11 +104,11 @@ export default {
         id
       }
       try {
-        await pageApi.deletePageById(params);
+        axios.delete("/page",{params})
         const newListPage = this.listBlog.filter(item => item.id !== id);
         this.listBlog = newListPage;
       } catch (error) {
-        console.log(error);
+          console.log(error);
       }
     },
     async getPageById(id) {
@@ -115,7 +116,7 @@ export default {
         id,
       }
       try {
-        const res = await pageApi.getPagesByParam(params);
+        const res = await axios.get(PAGE_DETAIL_API,{params});
         this.selectBlog = res;
       } catch (error) {
         console.log(error);
@@ -140,7 +141,7 @@ export default {
         sort: { sell_quantity: 1 }
       }
       try {
-        const res = await pageApi.getPageByFilter(data);
+        const res = await axios.post(PAGE_API,data);
         this.listBlog = res.filter(item =>item.is_deleted === false);
         if (!idBlog) {
           this.selectBlog = res.length > 0 ? res[0] : {};

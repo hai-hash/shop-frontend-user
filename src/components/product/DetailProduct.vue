@@ -77,10 +77,11 @@
     </div>
 </template>
 <script>
-import ThumbsCarousel from '@/components/common/ThumbsCarousel.vue'
-import CounterProduct from '@/components/common/CounterProduct.vue'
-import MultiSharing from '@/components/common/MultiSharing.vue'
-import productApi from '@/api/method/product/productApi';
+import ThumbsCarousel from '@/components/common/ThumbsCarousel.vue';
+import CounterProduct from '@/components/common/CounterProduct.vue';
+import MultiSharing from '@/components/common/MultiSharing.vue';
+import {PRODUCT_DETAIL_API} from '@/constant/common/UrlApi';
+import axios from 'axios';
 export default {
     name: 'DetaiProduct',
     components: {
@@ -112,7 +113,7 @@ export default {
                 id
             }
             try {
-                const data = await productApi.getProductDetail(params);
+                const data = await axios.get(PRODUCT_DETAIL_API,{params});
                 this.dataDetailProduct = data;
                 this.listImage = data.alternative_images;
                 this.descriptionData = data.long_desc;

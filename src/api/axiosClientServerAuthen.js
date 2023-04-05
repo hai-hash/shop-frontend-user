@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClientServerAuthen = axios.create({
-    baseURL: "http://tashapy-mtsig.appengine.bfcplatform.vn",
+    baseURL: "https://tashapy-mtsig.appengine.bfcplatform.vn",
     headers: {
         'content-type': 'application/json',
     },

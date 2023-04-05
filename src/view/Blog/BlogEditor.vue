@@ -87,11 +87,11 @@
 <script>
 import FooterPage from '@/view/home/FooterPage.vue';
 import * as types from '@/api/common/PageType';
-import BlogService from '@/api/services/BlogService';
 import { PAGE_TYPE_OPTION } from '@/constant/blog/blogEditer';
 import Editor from '@/components/common/Editor.vue';
 import UploadImage from '@/components/common/UploadImage.vue';
-
+import axios from 'axios';
+import { PAGE_DETAIL_API } from '@/constant/common/UrlApi';
 export default {
     name: 'BlogEditor',
     components: {
@@ -134,7 +134,7 @@ export default {
     methods: {
         async handleCreateBlog() {
             try {
-                const res = await BlogService.create(this.blogData);
+                const res = await axios.post(PAGE_DETAIL_API,this.blogData)
                 this.message = 'Thêm mới bài viết thành công';
                 this.messageBg = 'success'
                 this.showMessage = true;

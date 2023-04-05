@@ -104,8 +104,9 @@
 
 <script>
 import {TypePage} from '@/constant/blog/blogEditer';
-import pageApi from '@/api/services/BlogService';
 import { TypePageName } from '@/constant/blog/blogEditer';
+import axios from 'axios';
+import {PAGE_API} from '@/constant/common/UrlApi';
 export default {
   name: 'ListBlog',
   mounted: function () {
@@ -136,7 +137,7 @@ export default {
             sort: { sell_quantity: 1 }
         }
         try {
-            const res = await pageApi.getPageByFilter(data);
+            const res = await axios.post(PAGE_API,data);
             this.listBlog = res;
            
         } catch (error) {

@@ -29,8 +29,9 @@
 </template>
 <script>
 import TechnologyItem from '@/components/technology/TechnologyItem.vue';
-import pageApi from '@/api/services/BlogService';
 import { TypePage } from '@/constant/blog/blogEditer';
+import axios from 'axios';
+import { PAGE_API } from '@/constant/common/UrlApi';
 export default {
     name: 'TechnologyPosts',
     components: {
@@ -66,7 +67,7 @@ export default {
             }
             try {
                 this.dataPosts = [];
-                const res = await pageApi.getPageByFilter(data);
+                const res = await axios.post(PAGE_API,data);
                 res.forEach(element => {
                     this.dataPosts.push({
                         id:element.id,

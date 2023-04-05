@@ -24,9 +24,10 @@
     </div>
 </template>
 <script>
-import UploadService from '@/api/services/UploadService';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiFileUploadOutline } from '@mdi/js';
+import axios from 'axios';
+import { UPDALOAD_IMAGE } from '@/constant/common/UrlApi'
 export default {
     name: 'UploadImage',
     components: {
@@ -65,8 +66,19 @@ export default {
         async uploadImage() {
             //upload image
             if (this.fileUpload) {
-                let uploadURL = await UploadService.uploadImage(this.fileUpload);
+                debugger
+                let uploadURL = await this.uploadImageApi(this.fileUpload);
                 this.$emit('input', uploadURL);
+            }
+        },
+        async uploadImageApi(file) {
+            const data = new FormData();
+            data.append('file', file);
+            try {
+                const responseURL = await axios.post(UPDALOAD_IMAGE, data);
+                return responseURL.file;
+            } catch (error) {
+                return null;
             }
         }
     }
