@@ -11,6 +11,7 @@ import DetailProduct from '@/components/product/DetailProduct.vue'
 import LoginForm from '@/view/login/LoginForm.vue'
 import PaymentCheckout from '@/components/order/PaymentCheckout.vue'
 import RegistryForm from '@/view/login/RegistryForm.vue'
+import AdminHome from '@/view/pageAdmin/AdminHome.vue'
 
 Vue.use(Router)
 
@@ -18,15 +19,15 @@ export default new Router({
   mode: 'history',
   routes: [ // bao gồm danh sách route
     {
-      path: '/', 
+      path: '/',
       name: 'Page',
-      component:  Page,
+      component: Page,
       children: [
         {
           path: '/',
-          name:'PageUser',
+          name: 'PageUser',
           component: PageUser,
-          children:[
+          children: [
             {
               path: '/',
               name: 'Home',
@@ -69,6 +70,12 @@ export default new Router({
           name: 'RegistryForm',
           component: RegistryForm
         },
+        {
+          path: "/management",
+          name: "Management",
+          component: AdminHome
+
+        }
       ]
     },
   ]
