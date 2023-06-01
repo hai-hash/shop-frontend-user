@@ -49,10 +49,10 @@ export default {
     height: 100%;
 }
 
-.v-toolbar__content{
+.container-manager .v-toolbar__content{
     width: unset !important;
-}
-.v-app-bar{
+} */
+.container-manager .v-app-bar{
     height: 60px !important;
 }
 </style>
