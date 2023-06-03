@@ -1,17 +1,13 @@
 <template>
     <div class="container-manager">
-        <NavbarManager :isCloseMenu="isCloseMenu"/>
+        <NavbarManager :isCloseMenu="isCloseMenu" />
         <v-card class="container-manager-content">
-           <AppBarManager @handleActionMenu = "handleActionMenu"/>
+            <AppBarManager @handleActionMenu="handleActionMenu" />
             <v-main>
-                <v-container fluid>
+                <v-container fluid class="container-content">
                     <router-view></router-view>
                 </v-container>
             </v-main>
-
-            <v-footer>
-            </v-footer>
-
         </v-card>
     </div>
 </template>
@@ -20,17 +16,17 @@ import NavbarManager from '@/components/common/NavbarManager.vue';
 import AppBarManager from '@/components/common/AppBarManager.vue';
 export default {
     name: "AdminHome",
-    data(){
-        return{
+    data() {
+        return {
             isCloseMenu: true,
         }
     },
-    components:{
+    components: {
         NavbarManager,
         AppBarManager
     },
-    methods:{
-        handleActionMenu(){
+    methods: {
+        handleActionMenu() {
             this.isCloseMenu = !this.isCloseMenu;
         }
     }
@@ -48,11 +44,15 @@ export default {
     display: flex;
     height: 100%;
 }
+.container-content{
+    background-color: rgb(240 248 255);
+}
 
-.container-manager .v-toolbar__content{
+.container-manager .v-toolbar__content {
     width: unset !important;
-} */
-.container-manager .v-app-bar{
+}
+
+.container-manager .v-app-bar {
     height: 60px !important;
 }
 </style>
