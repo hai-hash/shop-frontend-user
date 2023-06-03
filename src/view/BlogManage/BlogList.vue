@@ -1,7 +1,4 @@
 <template>
-    <div class="blog-list">
-        <h3 class="title-page">Blog list</h3>
-        <p class="link">Home/BlogList</p>
         <v-card class="layout-content">
             <v-row class="layout-row-element">
                 <v-col cols="2" class="layout-col-element">
@@ -21,7 +18,7 @@
                         </div>
                             </v-col>
                             <v-col cols="3">
-                                <v-btn class="ma-2 add-button" color="#4cb6e0">
+                                <v-btn @click="goToEditor" class="ma-2 add-button" color="#4cb6e0">
                             <v-icon>mdi-plus</v-icon>Blog
                         </v-btn>
                             </v-col>
@@ -51,7 +48,6 @@
                 </v-col>
             </v-row>
         </v-card>
-    </div>
 </template>
 <script>
 import BlogRowData from '@/components/blog/BlogRowData.vue';
@@ -66,27 +62,16 @@ export default {
         return {
 
         }
+    },
+    methods:{
+        goToEditor(){
+            this.$router.push("blog/editor");
+        }
     }
 }
 
 </script>
 <style scoped>
-.blog-list {
-    max-width: 96%;
-    margin: 0 auto;
-}
-
-.title-page {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.link {
-    color: blue;
-    margin-bottom: 30px;
-    font-size: 14px;
-}
-
 .search-box {
     margin-left: 15px;
 }

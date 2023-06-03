@@ -5,7 +5,11 @@
             <AppBarManager @handleActionMenu="handleActionMenu" />
             <v-main>
                 <v-container fluid class="container-content">
-                    <router-view></router-view>
+                    <div class="blog-list">
+                        <h3 class="title-page">Blog list</h3>
+                        <p class="link">Home/BlogList</p>
+                        <router-view></router-view>
+                    </div>
                 </v-container>
             </v-main>
         </v-card>
@@ -44,7 +48,8 @@ export default {
     display: flex;
     height: 100%;
 }
-.container-content{
+
+.container-content {
     background-color: rgb(240 248 255);
 }
 
@@ -55,4 +60,19 @@ export default {
 .container-manager .v-app-bar {
     height: 60px !important;
 }
-</style>
+
+.blog-list {
+    max-width: 96%;
+    margin: 0 auto;
+}
+
+.title-page {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.link {
+    color: blue;
+    margin-bottom: 30px !important;
+    font-size: 14px;
+}</style>

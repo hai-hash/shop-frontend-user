@@ -13,6 +13,7 @@ import PaymentCheckout from '@/components/order/PaymentCheckout.vue'
 import RegistryForm from '@/view/login/RegistryForm.vue'
 import AdminHome from '@/view/pageAdmin/AdminHome.vue'
 import BlogList from '@/view/BlogManage/BlogList.vue'
+import BlogAdd from '@/view/BlogManage/BlogAdd.vue'
 
 Vue.use(Router)
 
@@ -81,6 +82,12 @@ export default new Router({
               name: 'BlogList',
               component: BlogList
             },
+            {
+              path: 'blog/editor',
+              name: 'BlogAdd',
+              component: BlogAdd
+            },
+           
           ]
 
         }
