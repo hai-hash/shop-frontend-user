@@ -1,17 +1,17 @@
 <template>
     <div class="container-manager">
-        <NavbarManager :isCloseMenu="isCloseMenu"/>
+        <NavbarManager :isCloseMenu="isCloseMenu" />
         <v-card class="container-manager-content">
-           <AppBarManager @handleActionMenu = "handleActionMenu"/>
+            <AppBarManager @handleActionMenu="handleActionMenu" />
             <v-main>
-                <v-container fluid>
-                    <router-view></router-view>
+                <v-container fluid class="container-content">
+                    <div class="blog-list">
+                        <h3 class="title-page">Blog list</h3>
+                        <p class="link">Home/BlogList</p>
+                        <router-view></router-view>
+                    </div>
                 </v-container>
             </v-main>
-
-            <v-footer>
-            </v-footer>
-
         </v-card>
     </div>
 </template>
@@ -20,17 +20,17 @@ import NavbarManager from '@/components/common/NavbarManager.vue';
 import AppBarManager from '@/components/common/AppBarManager.vue';
 export default {
     name: "AdminHome",
-    data(){
-        return{
+    data() {
+        return {
             isCloseMenu: true,
         }
     },
-    components:{
+    components: {
         NavbarManager,
         AppBarManager
     },
-    methods:{
-        handleActionMenu(){
+    methods: {
+        handleActionMenu() {
             this.isCloseMenu = !this.isCloseMenu;
         }
     }
@@ -49,10 +49,30 @@ export default {
     height: 100%;
 }
 
-.container-manager .v-toolbar__content{
+.container-content {
+    background-color: rgb(240 248 255);
+}
+
+.container-manager .v-toolbar__content {
     width: unset !important;
-} */
-.container-manager .v-app-bar{
+}
+
+.container-manager .v-app-bar {
     height: 60px !important;
 }
-</style>
+
+.blog-list {
+    max-width: 96%;
+    margin: 0 auto;
+}
+
+.title-page {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.link {
+    color: blue;
+    margin-bottom: 30px !important;
+    font-size: 14px;
+}</style>

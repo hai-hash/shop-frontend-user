@@ -6,7 +6,7 @@
             <v-card-text class="area-image-drop" v-viewer>
                 <img v-if="isSelectedImage" :src="imageURL" />
                 <div class="upload-event">
-                    <v-btn color="#d46605" dark :loading="isSelecting" @click="handleFileImport">
+                    <v-btn color="#4cb6e0" dark :loading="isSelecting" @click="handleFileImport">
                         <svg-icon type="mdi" :path="path"></svg-icon>
                     </v-btn>
                     <div class="note">
@@ -112,7 +112,7 @@ img {
 .upload-event {
     width: 70%;
     height: 100%;
-    border: 4px dashed #d46605;
+    border: 4px dashed #4cb6e0;
     display: flex;
     flex-direction: column;
     justify-content: center;
