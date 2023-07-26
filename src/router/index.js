@@ -11,9 +11,9 @@ import DetailProduct from '@/components/product/DetailProduct.vue'
 import LoginForm from '@/view/login/LoginForm.vue'
 import PaymentCheckout from '@/components/order/PaymentCheckout.vue'
 import RegistryForm from '@/view/login/RegistryForm.vue'
-import AdminHome from '@/view/pageAdmin/AdminHome.vue'
-import BlogList from '@/view/BlogManage/BlogList.vue'
-import BlogAdd from '@/view/BlogManage/BlogAdd.vue'
+// import AdminHome from '@/view/pageAdmin/AdminHome.vue'
+// import BlogList from '@/view/BlogManage/BlogList.vue'
+// import BlogAdd from '@/view/BlogManage/BlogAdd.vue'
 
 Vue.use(Router)
 
@@ -72,25 +72,25 @@ export default new Router({
           name: 'RegistryForm',
           component: RegistryForm
         },
-        {
-          path: "/management",
-          name: "Management",
-          component: AdminHome,
-          children:[
-            {
-              path: 'blog',
-              name: 'BlogList',
-              component: BlogList
-            },
-            {
-              path: 'blog/editor',
-              name: 'BlogAdd',
-              component: BlogAdd
-            },
+        // {
+        //   path: "/management",
+        //   name: "Management",
+        //   component: AdminHome,
+        //   children:[
+        //     {
+        //       path: 'blog',
+        //       name: 'BlogList',
+        //       component: BlogList
+        //     },
+        //     {
+        //       path: 'blog/editor',
+        //       name: 'BlogAdd',
+        //       component: BlogAdd
+        //     },
            
-          ]
+        //   ]
 
-        }
+        // }
       ]
     },
   ]
