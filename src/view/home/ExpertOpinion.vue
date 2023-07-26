@@ -47,7 +47,9 @@ export default {
           {
             page_type: {
               $in: [TypePage.expect_opinion]
-            }
+            },
+            is_deleted: false,
+            is_parent_page:true,
           }
         ]
       }

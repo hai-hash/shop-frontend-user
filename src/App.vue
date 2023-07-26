@@ -21,7 +21,7 @@ export default {
   },
   methods:{
     initConfig(){
-      axios.defaults.baseURL = "https://hina-pqmjv.appengine.bfcplatform.vn";
+      axios.defaults.baseURL = "http://localhost:8080";
       axios.defaults.headers.common['content-type'] = 'application/json';
       axios.defaults.timeout = 5000;
       axios.interceptors.request.use(async (config) =>{

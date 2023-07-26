@@ -130,7 +130,8 @@ export default {
           {
             page_type: {
               $in: [TypePage[pageTypeName]]
-            }
+            },
+            is_deleted: false
           }
         ]
       }

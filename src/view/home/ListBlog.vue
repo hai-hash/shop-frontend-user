@@ -126,7 +126,9 @@ export default {
                     {
                         page_type: {
                             $in: [TypePage.blog]
-                        }
+                        },
+                        is_deleted: false,
+                        is_parent_page:true,
                     }
                 ]
         }

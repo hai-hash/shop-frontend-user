@@ -54,7 +54,9 @@ export default {
                     {
                         page_type: {
                             $in: [TypePage.technology]
-                        }
+                        },
+                        is_deleted: false,
+                        is_parent_page:true,
                     }
                 ]
             }

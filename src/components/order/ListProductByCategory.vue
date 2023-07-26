@@ -44,7 +44,8 @@ export default {
                         {
                             category_ids: {
                                 $in: [this.$route.query.category]
-                            }
+                            },
+                            is_deleted: false
                         }
                     ]
                 }

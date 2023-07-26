@@ -28,8 +28,9 @@ export default {
                 $and: [
                     {
                         page_type: {
-                            $in: [TypePage.commit]
-                        }
+                            $in: [TypePage.commit],
+                        },
+                        is_deleted: false
                     }
                 ]
         }

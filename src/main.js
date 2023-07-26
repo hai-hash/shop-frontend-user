@@ -6,7 +6,7 @@ import 'vueperslides/dist/vueperslides.css'
 import router from './router'
 import VueFbCustomerChat from 'vue-fb-customer-chat'
 import 'swiper/css/swiper.css'
-import CKEditor from '@ckeditor/ckeditor5-vue2';
+// import CKEditor from '@ckeditor/ckeditor5-vue2';
 import 'viewerjs/dist/viewer.css'
 import VueViewer from 'v-viewer'
 import VueSocialSharing from 'vue-social-sharing'
@@ -18,7 +18,7 @@ Vue.use(VueFbCustomerChat, {
   theme_color: '#333333', // theme color in HEX
   locale: 'en_US', // default 'en_US'
 })
-Vue.use( CKEditor );
+// Vue.use( CKEditor );
 
 Vue.config.productionTip = false
 

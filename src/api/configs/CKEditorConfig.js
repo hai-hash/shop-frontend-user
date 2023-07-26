@@ -44,8 +44,8 @@ export const items = [
     "numberedList",
     "bulletedList",
     "mediaEmbed",
-    // "insertTable",
-    // "tableColumn",
-    // "tableRow",
-    // "mergeTableCells",
+    "insertTable",
+    "tableColumn",
+    "tableRow",
+    "mergeTableCells",
 ]

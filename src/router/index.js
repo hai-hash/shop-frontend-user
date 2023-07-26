@@ -5,7 +5,7 @@ import PageUser from '@/view/PageUser/PageUser.vue'
 import Home from '@/view/home/Home.vue'
 import OrderPage from '@/view/order/OrderPage.vue'
 import Page from '@/view/Page/Page.vue'
-import BlogEditor from '@/view/Blog/BlogEditor.vue'
+// import BlogEditor from '@/view/Blog/BlogEditor.vue'
 import BlogView from '@/view/Blog/BlogView.vue'
 import DetailProduct from '@/components/product/DetailProduct.vue'
 import LoginForm from '@/view/login/LoginForm.vue'
@@ -33,11 +33,11 @@ export default new Router({
               name: 'Home',
               component: Home
             },
-            {
-              path: '/blog-editor',
-              name: 'BlogEditor',
-              component: BlogEditor
-            },
+            // {
+            //   path: '/blog-editor',
+            //   name: 'BlogEditor',
+            //   component: BlogEditor
+            // },
             {
               path: '/page/:page_type',
               name: 'BlogView',

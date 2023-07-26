@@ -47,7 +47,9 @@ export default {
                     {
                         page_type: {
                             $in: [TypePage.quality]
-                        }
+                        },
+                        is_deleted: false,
+                        is_parent_page:true,
                     }
                 ]
         }
