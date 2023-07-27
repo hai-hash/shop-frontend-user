@@ -43,6 +43,7 @@ export default {
     flex-shrink: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .technology-image {

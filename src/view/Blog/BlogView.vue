@@ -18,9 +18,9 @@
             <v-list-item v-for="(item, index) in listBlog" :key="index"
               :class="item.id !== selectBlog.id ? '' : 'deep-purple--text text--accent-4 v-list-item--active'">
               <v-list-item-title  @click="handleSelectBlog(item)">{{ item.title }}</v-list-item-title>
-              <v-list-item-icon @click="handleClickButtonDelete(item.id)">
+              <!-- <v-list-item-icon @click="handleClickButtonDelete(item.id)">
                 <v-icon>mdi-delete</v-icon>
-              </v-list-item-icon>
+              </v-list-item-icon> -->
             </v-list-item>
           </v-list-item-group>
         </v-list>

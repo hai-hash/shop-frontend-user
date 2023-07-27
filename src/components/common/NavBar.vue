@@ -142,11 +142,6 @@ export default {
                     path: "/contact",
                     children: []
                 },
-                {
-                    title: 'BLOG EDITOR',
-                    path: "/blog-editor",
-                    children: []
-                }
             ],
             menuMobie: [
                 {
@@ -214,11 +209,6 @@ export default {
                     path: "/blog",
                     children: []
                 },
-                {
-                    title: 'BLOG EDITOR',
-                    path: "/blog-editor",
-                    children: []
-                }
             ]
         }
     },
